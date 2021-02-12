@@ -1,0 +1,395 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.timezone {
+    display: inline;
+}
+
+.timezoneleft {
+    float: left;
+}
+
+.timezoneright {
+    float: right;
+}
+
+.selectfont {
+    font-size: 14px;
+}
+
+.moreactivity_div {
+    text-align: center;
+}
+
+.moreactivity_div a {
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.yesnobtn {
+    display: block;
+    text-align: center;
+}
+
+.yesnobtn a {
+    padding: 10px;
+}
+
+.moreactivity {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#login .container #login-row #login-column #login-box {
+    margin-top: 60px;
+    max-width: 600px;
+    height: 420px;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+}
+
+#login .container #login-row #login-column #login-box #login-form {
+    padding: 20px;
+}
+
+#login .container #login-row #login-column #login-box #login-form #register-link {
+    margin-top: -85px;
+}
+
+#success_message {
+    display: none;
+}
+
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}
+
+.btn-facebook {
+    background-color: #405D9D;
+    color: #fff;
+}
+
+.btn-twitter {
+    background-color: #42AEEC;
+    color: #fff;
+}
+
+.ptextcolor {
+    color: #4CC552;
+}
+
+.clndr {
+    margin-left: -15px;
+    max-width: 230px;
+}
+
+.space {
+    padding-top: 30px;
+}
+
+.text-info {
+    color: #e2e5e6 !important;
+}
+
+.bgq_table {
+    text-align: center;
+    margin-top: 45px;
+}
+
+.bgq_table_h5 {
+    color: #54C571;
+    text-align: center;
+}
+
+.checkboxsize {
+    padding: 50px;
+}
+
+.timpickcss {
+    background: black;
+    margin: 100px;
+    float: left;
+}
+
+.chart-skills {
+    margin: 0 auto;
+    padding: 0;
+    list-style-type: none;
+}
+
+.chart-skills li a {
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+}
+
+.chart-skills *,
+.chart-skills::before {
+    box-sizing: border-box;
+}
+
+.chart-skills {
+    position: relative;
+    width: 350px;
+    height: 175px;
+    overflow: hidden;
+}
+
+.chart-skills::before,
+.chart-skills::after {
+    position: absolute;
+}
+
+.chart-skills::before {
+    color: black;
+    width: inherit;
+    height: inherit;
+    border: 45px solid rgba(211, 211, 211, .3);
+    border-bottom: none;
+    border-top-left-radius: 175px;
+    border-top-right-radius: 175px;
+}
+
+.chart-skills::after {
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: cadetblue;
+}
+
+.fontsize {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.chart-skills li {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    border: 45px solid;
+    border-top: none;
+    border-bottom-left-radius: 175px;
+    border-bottom-right-radius: 175px;
+    transform-origin: 50% 0;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    animation-fill-mode: forwards;
+    animation-duration: .4s;
+    animation-timing-function: linear;
+}
+
+.chart-skills li:nth-child(1) {
+    z-index: 4;
+    border-color: red;
+    animation-name: rotate-one;
+}
+
+.chart-skills li:nth-child(2) {
+    z-index: 3;
+    border-color: firebrick;
+    animation-name: rotate-two;
+}
+
+.chart-skills li:nth-child(3) {
+    z-index: 2;
+    border-color: steelblue;
+    animation-name: rotate-three;
+}
+
+.chart-skills li:nth-child(4) {
+    z-index: 1;
+    border-color: orange;
+    animation-name: rotate-four;
+}
+
+.chart-skills li:nth-child(5) {
+    z-index: 0;
+    border-color: pink;
+    animation-name: rotate-five;
+}
+
+.chart-skills span {
+    position: absolute;
+    font-size: .85rem;
+    backface-visibility: hidden;
+    animation: fade-in .4s linear forwards;
+}
+
+.chart-skills li:nth-child(1) span {
+    top: 36px;
+    left: -20px;
+    transform: rotate(-36deg);
+}
+
+.chart-skills li:nth-child(2) span {
+    top: 40px;
+    left: -20px;
+    transform: rotate(-72deg);
+    animation-delay: .4s;
+}
+
+.chart-skills li:nth-child(3) span {
+    top: 40px;
+    left: -20px;
+    transform: rotate(-108deg);
+    animation-delay: .8s;
+}
+
+.chart-skills li:nth-child(4) span {
+    top: 40px;
+    left: -20px;
+    transform: rotate(-144deg);
+    animation-delay: 1.2s;
+}
+
+.chart-skills li:nth-child(5) span {
+    top: 36px;
+    left: -20px;
+    transform: rotate(-180deg);
+    animation-delay: 1.2s;
+}
+
+@keyframes rotate-one {
+    100% {
+        transform: rotate(36deg);
+        /**
+     * 12% => 21.6deg
+     */
+    }
+}
+
+@keyframes rotate-two {
+    0% {
+        transform: rotate(36deg);
+    }
+    100% {
+        transform: rotate(72deg);
+        /**
+     * 32% => 57.6deg
+     * 57.6 + 21.6 => 79.2deg
+     */
+    }
+}
+
+@keyframes rotate-three {
+    0% {
+        transform: rotate(72deg);
+    }
+    100% {
+        transform: rotate(108deg);
+        /**
+     * 34% => 61.2deg
+     * 61.2 + 79.2 => 140.4deg
+     */
+    }
+}
+
+@keyframes rotate-four {
+    0% {
+        transform: rotate(108deg);
+    }
+    100% {
+        transform: rotate(144deg);
+        /**
+     * 22% => 39.6deg
+     * 140.4 + 39.6 => 180deg
+     */
+    }
+}
+
+@keyframes rotate-five {
+    0% {
+        transform: rotate(144deg);
+    }
+    100% {
+        transform: rotate(180deg);
+        /**
+     * 22% => 39.6deg
+     * 140.4 + 39.6 => 180deg
+     */
+    }
+}
+
+@keyframes fade-in {
+    0%,
+    90% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.box1 {
+    max-width: 770px;
+    padding-top: 80px;
+    margin-top: 50px;
+    position: relative;
+}
+
+.box2 {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.boxt2font {
+    margin-top: 50px;
+    font-size: 18px;
+    text-align: right;
+    padding: 8px;
+}
+
+.boxt3font {
+    margin-top: 50px;
+    font-size: 18px;
+    text-align: left;
+    padding: 8px;
+}
+
+.box4 {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.box3 {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
