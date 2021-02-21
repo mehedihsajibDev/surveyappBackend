@@ -45,6 +45,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
 
+
 <link rel="stylesheet" href="{{asset('backend')}}/css/style.css">
 <style>
     table, th, td {
@@ -322,11 +323,59 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
         <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
       </div>
       <div class="container text-center"style="width: 400px;">
-        <a href="{{route('home')}}" style="padding-right: 8px;"><span class="text-success"> Yes</span></a>
-        <a href="#" id="nobtn" data-toggle="modal" data-target="#myModal" style="padding-left: 8px;><span class="text-primary"> No</span>
+        <a href="#" data-toggle="modal" data-target="#myModal">
+
+            <span class="text-success"> Yes</span>
+            <span class="moreactivity text-primary">
+
+          <div class="modal fade" id="myModal" role="dialog" >
+            <div class="modal-dialog modal-sm" >
+              <div class="modal-content">
+                <div class="modal-header" >
+                  <button type="button" class="close" data-dismiss="modal"></button>
+                  <h3 class="modal-title" style="font-size: 18px;">Did you have Home activity or Trip?
+                  </h3>
+                </div>
+                <div class="modal-body">
+                  <div class="">
+              <div class="">
+                <div class="action-bar" >
+            <a href="{{route('home_secondpart')}}" class="text-success">
+                <i class="fa fa-home"></i>
+                Home
+            </a>
+
+                <i class="fa fa-car invisible"></i>
+
+
+            <a href="{{route('trip_part')}}" class="text-danger">
+                <i class="fa fa-car"></i>
+                Trip
+            </a>
+               </div>
+
+              </div>
+
+              </div>
+                </div>
+                 <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+            </span>
+          </a>
+
+
+
+
+        <a href="#" id="nobtn" data-toggle="modal" data-target="#myModals" style="padding-left: 8px;><span class="text-primary">
+           <span class="text-danger"> No</span>
          <span class="moreactivity text-primary">
 
-             <div class="modal fade" id="myModal" role="dialog" >
+             <div class="modal fade" id="myModals" role="dialog" >
                  <div class="modal-dialog modal-sm" >
                    <div class="modal-content">
                      <div class="modal-header" >
@@ -369,7 +418,6 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
             </a>
       </div>
     </div>
-
 
 <script type="text/javascript">
 function timePicker(id){

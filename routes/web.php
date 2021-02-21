@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,14 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('sd', 'HomeController@indexsd')->name('sd');
 
+Route::get('/', 'QuestionsController@decision')->name('decision');
+Route::get('home_another', 'HomeandTripController@home_second')->name('home_secondpart');
+Route::get('trip_part', 'HomeandTripController@trip_parts')->name('trip_part');
+Route::post('trippost', 'HomeandTripController@tripposts')->name('trippost');
+Route::get('bgquestion', 'QuestionsController@questions')->name('bgquestion');
+Route::post('answeresubmit', 'QuestionsController@ans_submit')->name('answeresubmit');
+Route::get('home', 'HomeController@index')->name('home');
 Route::post('onlyhome', 'Myhomeconroller@onlyhomeactivity')->name('homeonly');
+
+
+

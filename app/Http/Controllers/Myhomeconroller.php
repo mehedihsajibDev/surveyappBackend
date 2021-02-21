@@ -37,9 +37,14 @@ class Myhomeconroller extends Controller
         $category->reason_cost = $request->input('Reasons_Expenditurecost');
         $category->copartner = $request->input('copartner');
         $category->save();
-        return Redirect()->back()->with('success','Category is inserted');
+
+        return Redirect()->back()->with('successs','Your data is ');
 
           }
-    }
+          public function __construct()
+          {
+              $this->middleware('auth');
+          }
+ }
 
 

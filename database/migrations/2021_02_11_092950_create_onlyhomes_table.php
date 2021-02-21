@@ -16,13 +16,15 @@ class CreateOnlyhomesTable extends Migration
         Schema::create('onlyhomes', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('start_time');
-            $table->string('end_time');
-            $table->string('task');
-            $table->string('multitaask');
-            $table->string('cost');
-            $table->string('reason_cost');
-            $table->string('copartner');
+            $table->string('start_time',100);
+            $table->string('end_time',100);
+            $table->string('task',100);
+            $table->string('multitaask',100);
+
+            $table->string('cost',100)->nullable();
+            $table->string('reason_cost',100)->nullable();
+            $table->string('copartner',100);
+            
             $table->timestamps();
 
         });
