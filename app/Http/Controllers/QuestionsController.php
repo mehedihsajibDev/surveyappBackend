@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Questions;
+use App\User;
 use App\Questionsanswere;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,11 +12,21 @@ use Illuminate\Support\Facades\Auth;
 class QuestionsController extends Controller
 {
     public function questions(){
-        return view('questions');
+        if (Auth::User()->status==1) {
+            return view('decision');
+        }
+        else{
+            return view('questions');
+        }
     }
 
     public function decision(){
-        return view('decision');
+        if (Auth::User()->status==1) {
+            return view('decision');
+        }
+        else{
+            return view('/');
+        }
     }
 
     public function ans_submit(Request $request)
@@ -34,8 +45,11 @@ class QuestionsController extends Controller
         $qans->ans5=$request->input('5throw_inlineRadioOptions');
         $qans->save();
 
+        User::where('id',Auth::User()->id)->update([
+            'status'=>1
+        ]);
 
-        return redirect('home');
+        return redirect('decision');
     }
 
 

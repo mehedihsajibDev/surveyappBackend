@@ -68,7 +68,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
          });
 </script>
 <script type="text/javascript">
-         $(document).ready(function(){$('#stepExample2').timepicker({ 'step': 15 });});</script>
+         $(document).ready(function(){$('#stepExample2').timepicker({ 'step': 15,'scrollDefault': 'now' });});</script>
 </head>
 <body>
 
@@ -87,7 +87,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
     </form>
 
 <form action="{{route('homeonly')}}" method="POST"
-data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-msg="true" >
+data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-msg="true"
+id="myform">
     @csrf
   <div class="container" style="max-width: 780px;">
 
@@ -129,24 +130,19 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
 
             <?php
                 // $time=\App\Onlyhome::orderby('id','desc')->get()
-                $time=\App\Onlyhome::orderby('id','desc')->first()
+                $time=\App\Onlyhome::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
 
             ?>
 
             <div style="float: left;">
-                {{-- @foreach ($time as $times)
-                {{ $times->start_time}}
 
-                @endforeach --}}
 
-                @if ($time->end_time==NULL)
+                @if (empty($time->user_id))
                 <input type="text" id="stepExample1" name="starttime" value="08:30">
                   @else
-                <input type="text" id="stepExample1" name="starttime" value="{{$time->end_time}}">
+                <input readonly type="text"   id="stepExample1" name="starttime"  value=" {{$time->end_time}}" >
                 @endif
-                @error('starttime')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
+
             </div>
 
         </div>
@@ -303,11 +299,65 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
 <tr>
     <td>
         <tr>
-            <td><div class="form-group text-center">
-                  <input type="submit" name="submit" class="btn btn-info btn-md mt-3 mysubmit" value="submit"
-                 ><br>
+            <td>
+                {{-- <div class="form-group text-center">
+        <input type="submit" name="submit" class="btn btn-info btn-md mt-3 mysubmit"
+        value="submit"><br>
+                </div> --}}
+                <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
+                    <div class="container text-center" style="width: 400px;" >
+                      <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
+                    </div>
+                    <div class="container text-center"style="width: 400px;">
+                        <a href="javascript:;" onclick="document.getElementById('myform').submit()"><span class="text-success"> Yes</span></a>
+                      <a href="#" id="nobtn" data-toggle="modal" data-target="#myModal" style="padding-left: 8px;><span class="text-danger"> No</span>
+                       <span class="moreactivity text-primary">
 
-                </div></td>
+                           <div class="modal fade" id="myModal" role="dialog" >
+                               <div class="modal-dialog modal-sm" >
+                                 <div class="modal-content">
+                                   <div class="modal-header" >
+                                     <button type="button" class="close" data-dismiss="modal"></button>
+
+                                   </div>
+                                   <div class="modal-body">
+                                     <div class="">
+                                        <h3 class="text-center" style="font-size: 18px;">
+
+                                          </h3>
+
+                                      <?php
+                                   date_default_timezone_set('Asia/Dhaka');
+                                   $time=date('Hi');
+
+                                   if(($time >="2350")&&($time>="2400")): ?>
+                               <small>Okk.You can Go Now</small><br><br>
+                                   <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                                    <p style="color: brown">Logout</p>
+                                   </a>
+
+                                   <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                   {{ csrf_field() }}
+                                   </form>
+                                    <?php endif; ?>
+                                    Your Task is pending.Please fill up your all record till 12:00am.
+
+                                 </div>
+                                   </div>
+                                    <div class="modal-footer">
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">
+                                         <a href="{{route('home')}}">Close</a>
+                                       </button>
+                                     </div>
+                                 </div>
+                               </div>
+                             </div>
+                           </span>
+                          </a>
+                    </div>
+                  </div>
+
+            </td>
           </tr>
     </td>
 </tr>
@@ -317,12 +367,12 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
 </table>
 </form>
 
-    <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
+    {{-- <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
       <div class="container text-center" style="width: 400px;" >
         <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
       </div>
       <div class="container text-center"style="width: 400px;">
-        <a href="{{route('home')}}" style="padding-right: 8px;"><span class="text-success"> Yes</span></a>
+        <a  type="submit" style="padding-right: 8px;"><span class="text-success"> Yes</span></a>
         <a href="#" id="nobtn" data-toggle="modal" data-target="#myModal" style="padding-left: 8px;><span class="text-primary"> No</span>
          <span class="moreactivity text-primary">
 
@@ -368,7 +418,7 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
              </span>
             </a>
       </div>
-    </div>
+    </div> --}}
 
 
 <script type="text/javascript">
