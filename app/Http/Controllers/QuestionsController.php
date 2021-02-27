@@ -7,7 +7,8 @@ use App\User;
 use App\Questionsanswere;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Question;
+use App\Answere;
 
 class QuestionsController extends Controller
 {
@@ -16,7 +17,9 @@ class QuestionsController extends Controller
             return view('decision');
         }
         else{
-            return view('questions');
+            $question=Question::all();
+            $answer=Answere::get();
+            return view('questions')->with('answer',$answer)->with('question',$question);
         }
     }
 
@@ -27,6 +30,9 @@ class QuestionsController extends Controller
         else{
             return view('/');
         }
+    }
+    public function homeOrtrip(){
+        return view('homeORtrip');
     }
 
     public function ans_submit(Request $request)

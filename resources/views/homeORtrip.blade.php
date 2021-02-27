@@ -37,7 +37,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker.min.css" />
-  <link rel="stylesheet" href="{{asset('backend')}}/css/style.css">
+  <link rel="stylesheet"href="{{asset('backend')}}/css/style.css">
 
 
 
@@ -46,7 +46,7 @@
 
   <style>
     body {
-      background-color: #17a2b8;
+      background-color: #D0D0D0;
     }
 
     .text-info {
@@ -56,7 +56,7 @@
 </head>
 
 <body>
-  <div>
+  {{-- <div>
     <a href="{{ url('/logout') }}"
     onclick="event.preventDefault();
              document.getElementById('logout-form').submit();"style="color:white">
@@ -65,64 +65,44 @@
 <form id="logout-form" action="{{ url('/logout') }}" method="POST">
     {{ csrf_field() }}
 </form>
-  </div>
+  </div> --}}
   <div id="login">
     <h3 class="text-center text-white pt-5"></h3>
     <div class="container">
       <div id="login-row" class="row justify-content-center align-items-center">
         <div id="login-column" class="col-md-6">
           <div id="login-box" class="col-md-12 ">
-  <h4 class="text-center text-infolink mt-5">Household Daily Trip Entry</h4><hr>
-
+  <h4 class="text-center text-white mt-5 invisible">Were you home whole day?</h4><hr>
 
 
             <div class="container" >
 
-                <div class='col-sm-5' style="position: absolute;width:300px;height: 100px;top: 0;left: 0;right: 0;bottom: 0; margin: auto;">
-                  <h4 class="text-center text-success"> Were you home whole day?</h4><br>
+                <div class='col-sm-5' style="position: absolute;width:320px;height: 100px;top: 0;left: 0;right: 0;bottom: 0; margin: auto;">
+                  <h4 class="text-center text-success">Did you have Home activity or Trip?</h4><br>
+
                   <div class="">
         <div class="action-bar" style="margin-bottom: 40px;display: block;text-align: center;">
-     <a href="" data-toggle="modal" data-target="#myModal"><span class="moreactivity text-primary">
+                              <a href="{{route('home_secondpart')}}" class="text-success">
+                              <i class="fa fa-home"></i>
+                              Home
+                              </a>
 
-      Yes
-      <div class="modal fade" id="myModal" role="dialog" >
-    <div class="modal-dialog modal-sm" >
-      <div class="modal-content">
-        <div class="modal-header" >
-          <button type="button" class="close" data-dismiss="modal"></button>
-          <h3 class="modal-title" style="font-size: 18px;">Are you sure you haven't been outside today?</h3>
-        </div>
-        <div class="modal-body">
-          <div class="">
-      <div class="">
-        <div class="action-bar" style="margin-bottom: 40px;">
-    <a href="{{route('firsthome')}}" class="text-success px-2">
+                              <i class="fa fa-car invisible"></i>
 
-        Yes
-    </a>
-    <a href="{{route('decision')}}" class="text-danger px-2">
 
-        No
-    </a>
-       </div>
+                           <a href="{{route('trip_part')}}" class="text-danger px-5">
+                              <i class="fa fa-car"></i>
+                              Trip
+                          </a>
 
-      </div>
 
-      </div>
-        </div>
-         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-      </div>
-    </div>
-  </div>
+                            </div>
 
-    </span></a>
+                            </div>
 
-    <a href="{{route('home_secondpart')}}" class="text-danger px-5">
 
-        <b>No</b>
-    </a>
+
+
        </div>
 
       </div>
@@ -144,7 +124,7 @@
     </div>
   </div>
 
-  <script src="style.js"></script>
+
 
 
 

@@ -16,7 +16,7 @@ class CreateTripactivityModelsTable extends Migration
         Schema::create('tripactivity_models', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('tripno');
+            $table->integer('tripno')->default(0);
             $table->string('starttime',100);
             $table->string('endtime',100);
             $table->string('task',100);

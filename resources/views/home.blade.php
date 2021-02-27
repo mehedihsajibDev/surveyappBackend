@@ -86,9 +86,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
         {{ csrf_field() }}
     </form>
 
-<form action="{{route('homeonly')}}" method="POST"
+<form action="{{route('home_single')}}" method="POST"
 data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-msg="true"
-id="myform">
+id="myform" >
     @csrf
   <div class="container" style="max-width: 780px;">
 
@@ -127,18 +127,15 @@ id="myform">
     <tr>
      <td>
         <div>
-
-            <?php
-                // $time=\App\Onlyhome::orderby('id','desc')->get()
-                $time=\App\Onlyhome::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
-
-            ?>
+            @php
+            $time=\App\Home_Single::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
+        @endphp
 
             <div style="float: left;">
 
 
                 @if (empty($time->user_id))
-                <input type="text" id="stepExample1" name="starttime" value="08:30">
+                <input type="text" id="stepExample1" name="starttime" value="12:00am">
                   @else
                 <input readonly type="text"   id="stepExample1" name="starttime"  value=" {{$time->end_time}}" >
                 @endif
@@ -300,10 +297,7 @@ id="myform">
     <td>
         <tr>
             <td>
-                {{-- <div class="form-group text-center">
-        <input type="submit" name="submit" class="btn btn-info btn-md mt-3 mysubmit"
-        value="submit"><br>
-                </div> --}}
+           
                 <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
                     <div class="container text-center" style="width: 400px;" >
                       <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
@@ -367,58 +361,7 @@ id="myform">
 </table>
 </form>
 
-    {{-- <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
-      <div class="container text-center" style="width: 400px;" >
-        <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
-      </div>
-      <div class="container text-center"style="width: 400px;">
-        <a  type="submit" style="padding-right: 8px;"><span class="text-success"> Yes</span></a>
-        <a href="#" id="nobtn" data-toggle="modal" data-target="#myModal" style="padding-left: 8px;><span class="text-primary"> No</span>
-         <span class="moreactivity text-primary">
 
-             <div class="modal fade" id="myModal" role="dialog" >
-                 <div class="modal-dialog modal-sm" >
-                   <div class="modal-content">
-                     <div class="modal-header" >
-                       <button type="button" class="close" data-dismiss="modal"></button>
-
-                     </div>
-                     <div class="modal-body">
-                       <div class="">
-                          <h3 class="text-center" style="font-size: 18px;">
-
-                            </h3>
-
-                        <?php
-                     date_default_timezone_set('Asia/Dhaka');
-                     $time=date('Hi');
-
-                     if(($time >="2350")&&($time>="2400")): ?>
-                 <small>Okk.You can Go Now</small><br><br>
-                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
-                      <p style="color: brown">Logout</p>
-                     </a>
-
-                     <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                     {{ csrf_field() }}
-                     </form>
-                      <?php endif; ?>
-                      Your Task is pending.Please fill up your all record till 12:00am.
-
-                   </div>
-                     </div>
-                      <div class="modal-footer">
-                       <button type="button" class="btn btn-default" data-dismiss="modal">
-                           <a href="{{route('home')}}">Close</a>
-                         </button>
-                       </div>
-                   </div>
-                 </div>
-               </div>
-             </span>
-            </a>
-      </div>
-    </div> --}}
 
 
 <script type="text/javascript">

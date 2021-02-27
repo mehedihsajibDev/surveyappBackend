@@ -69,7 +69,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
          });
 </script>
 <script type="text/javascript">
-         $(document).ready(function(){$('#stepExample2').timepicker({ 'step': 15 });});</script>
+         $(document).ready(function(){$('#stepExample2').timepicker({ 'step': 15,'scrollDefault': 'now' });});</script>
 </head>
 <body>
 
@@ -88,7 +88,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
     </form>
 
 <form action="{{route('homeonly')}}" method="POST"
-data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-msg="true" >
+data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-msg="true"
+id="myform">
     @csrf
   <div class="container" style="max-width: 780px;">
 
@@ -128,11 +129,12 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
      <td>
         <div>
 
-            <?php
-                // $time=\App\Onlyhome::orderby('id','desc')->get()
-                $time=\App\Onlyhome::orderby('id','desc')->first()
-
-            ?>
+            @php
+               $time=\App\Onlyhome::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
+           @endphp
+            @php
+          $time2=\App\TripactivityModel::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
+           @endphp
 
             <div style="float: left;">
                 {{-- @foreach ($time as $times)
@@ -140,10 +142,19 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
 
                 @endforeach --}}
 
-                @if ($time->end_time==NULL)
-                <input type="text" id="stepExample1" name="starttime" value="08:30">
+                @if (empty($time->user_id))
+                <input  type="text" id="stepExample1" name="starttime" value="08:30">
                   @else
-                <input type="text" id="stepExample1" name="starttime" value="{{$time->end_time}}">
+                  @if (empty($time2->user_id))
+                  <input readonly type="text" id="stepExample1" name="starttime" value="{{$time->end_time}}">
+                  @else
+                  @if($time->end_time<$time2->endtime)
+                <input readonly type="text" id="stepExample1" name="starttime" value="{{$time2->endtime}}">
+                  @elseif($time->end_time>$time2->endtime)
+                <input readonly type="text" id="stepExample1" name="starttime" value="{{$time->end_time}}">
+
+                @endif
+                @endif
                 @endif
                 @error('starttime')
                 <span class="text-danger">{{$message}}</span>
@@ -303,11 +314,111 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
   </tr>
 <tr>
     <td>
-        <tr>
-            <td><div class="form-group text-center">
-                  <input type="submit" name="submit" class="btn btn-info btn-md mt-3 mysubmit" value="submit"
-                 ><br>
+ <tr>
+     <td>
+            <div class="form-group text-center">
+                <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
+                    <div class="container text-center" style="width: 400px;" >
+                      <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
+                    </div>
+                    <div class="container text-center"style="width: 400px;">
 
+                        <a href="javascript:;"  onclick="document.getElementById('myform').submit()">
+
+                          <span class="text-success"> Yes</span>
+                          <span class="moreactivity text-primary">
+
+                    <div class="modal fade" id="myModal" role="dialog" >
+                          <div class="modal-dialog modal-sm" >
+                            <div class="modal-content">
+                              <div class="modal-header" >
+                                <button type="button" class="close" data-dismiss="modal"></button>
+                                <h3 class="modal-title" style="font-size: 18px;">Did you have Home activity or Trip?
+                                </h3>
+                              </div>
+                              <div class="modal-body">
+                                <div class="">
+                            <div class="">
+                              <div class="action-bar" >
+                          <a href="{{route('home_secondpart')}}" class="text-success">
+                              <i class="fa fa-home"></i>
+                              Home
+                          </a>
+
+                              <i class="fa fa-car invisible"></i>
+
+
+                          <a href="{{route('trip_part')}}" class="text-danger">
+                              <i class="fa fa-car"></i>
+                              Trip
+                          </a>
+                             </div>
+
+                            </div>
+
+                            </div>
+                              </div>
+                               <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+
+                        </a>
+
+
+
+
+                      <a href="#" id="nobtn" data-toggle="modal" data-target="#myModals" style="padding-left: 8px;><span class="text-primary">
+                         <span class="text-danger"> No</span>
+                       <span class="moreactivity text-primary">
+
+                           <div class="modal fade" id="myModals" role="dialog" >
+                               <div class="modal-dialog modal-sm" >
+                                 <div class="modal-content">
+                                   <div class="modal-header" >
+                                     <button type="button" class="close" data-dismiss="modal"></button>
+
+                                   </div>
+                                   <div class="modal-body">
+                                     <div class="">
+                                        <h3 class="text-center" style="font-size: 18px;">
+
+                                          </h3>
+
+                                      <?php
+                                   date_default_timezone_set('Asia/Dhaka');
+                                   $time=date('Hi');
+
+                                   if(($time >="2350")&&($time>="2400")): ?>
+                               <small>Okk.You can Go Now</small><br><br>
+                                   <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                                    <p style="color: brown">Logout</p>
+                                   </a>
+
+                                   <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                   {{ csrf_field() }}
+                                   </form>
+                                    <?php endif; ?>
+                                    Your Task is pending.Please fill up your all record till 12:00am.
+
+                                 </div>
+                                   </div>
+                                    <div class="modal-footer">
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">
+                                         <a href="{{route('home_secondpart')}}">Close</a>
+                                       </button>
+                                     </div>
+                                 </div>
+                               </div>
+                             </div>
+                           </span>
+                          </a>
+                    </div>
+
+                  </div>
                 </div></td>
           </tr>
     </td>
@@ -318,12 +429,12 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
 </table>
 </form>
 
-    <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
+    {{-- <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
       <div class="container text-center" style="width: 400px;" >
         <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
       </div>
       <div class="container text-center"style="width: 400px;">
-        <a href="#" data-toggle="modal" data-target="#myModal">
+        <a href="javascript:;" data-toggle="modal" data-target="#myModal" onclick="document.getElementById('myform').submit()">
 
             <span class="text-success"> Yes</span>
             <span class="moreactivity text-primary">
@@ -408,7 +519,7 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
                      </div>
                       <div class="modal-footer">
                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                           <a href="{{route('home')}}">Close</a>
+                           <a href="{{route('home_secondpart')}}">Close</a>
                          </button>
                        </div>
                    </div>
@@ -417,7 +528,7 @@ data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-ms
              </span>
             </a>
       </div>
-    </div>
+    </div> --}}
 
 <script type="text/javascript">
 function timePicker(id){

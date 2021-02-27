@@ -62,7 +62,7 @@ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
     </div>
 
 
-    <form action="{{route('answeresubmit')}}" method="POST">
+    <form action="{{url('questionans')}}" method="POST">
 @csrf
 <p class="text-center text-success">নিচের প্রশ্নগুলোর উত্তর দিন</p>
       <table class="table table-striped table-responsive ">
@@ -70,282 +70,35 @@ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
 
      <tr>
             <th scope="col">জীবনের সন্তুষ্টির মানদণ্ড</th><br>
-            <th scope="col">দৃঢ়ভাবে একমত</th>
-            <th scope="col">একমত</th>
-            <th scope="col">সামান্য একমত</th>
-            <th scope="col">নিরপেক্ষ</th>
-            <th scope="col">কিছুটা দ্বিমত</th>
-            <th scope="col">দ্বিমত</th>
-            <th scope="col">দৃঢ়ভাবে দ্বিমত</th>
+            @foreach($answer as $getans)
+            <th scope="col">{{$getans->ans_title}}</th>
+            @endforeach
             </tr>
 
         </thead>
         <tbody>
+            @foreach($question as $key =>$questionget)
           <tr>
 
             <td>
-              <p class="ptextcolor">বেশিরভাগ ক্ষেত্রেই আমার জীবন আমার দৃষ্টিতে একটি আদর্শ জীবনের কাছাকাছি</p>
+              <p class="ptextcolor">{{$questionget->question_title}}</p>
+          
             </td>
+            @foreach($answer as $ansget)
             <td>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="1strow_inlineRadioOptions"
-                 id="1strow_inlineRadio1" value="Strongly Disagree" required>
 
-                <label class="form-check-label" for="1strow_inlineRadio1">1</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="1strow_inlineRadioOptions" i
-                d="1strow_inlineRadio2" value="Disagree"required>
-                <label class="form-check-label" for="1strow_inlineRadio2">2</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="1strow_inlineRadioOptions"
-                id="1strow_inlineRadio3" value="Slightly Disagree"required>
-                <label class="form-check-label" for="1strow_inlineRadio3">3</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="1strow_inlineRadioOptions"
-                id="1strow_inlineRadio4" value="Neither agree nor disagree"required>
-                <label class="form-check-label" for="1strow_inlineRadio4">4</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="1strow_inlineRadioOptions"
-                id="1strow_inlineRadio5" value="Slightly agree"required>
-                <label class="form-check-label" for="1strow_inlineRadio5">5</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="1strow_inlineRadioOptions"
-                id="1strow_inlineRadio6" value="Agree"required>
-                <label class="form-check-label" for="1strow_inlineRadio6">6</label>
-              </div>
-            </td>
+                <input class="form-check-input" id="ans{{$key}}" type="radio" name="answere_id[{{$key}}]" value="{{$ansget->id}}"
+                >
 
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="1strow_inlineRadioOptions"
-                id="1strow_inlineRadio7" value="Strongly Agree"required>
-                <label class="form-check-label" for="1strow_inlineRadio7">7</label>
+                <label class="form-check-label" for="1strow_inlineRadio1">{{$ansget->id}}</label>
+
               </div>
             </td>
+            @endforeach
           </tr>
+  @endforeach
 
-          <tr>
-
-            <td>
-              <p class="ptextcolor">আমি একটি অত্তান্ত চমৎকার জীবনযাপন করি</p>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="2ndrow_inlineRadioOptions"
-                id="2ndrow_inlineRadio1" value="দৃঢ়ভাবে একমত"required>
-
-                <label class="form-check-label" for="2ndrow_inlineRadio1">1</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="2ndrow_inlineRadioOptions"
-                id="2ndrow_inlineRadio2" value="একমত"required>
-                <label class="form-check-label" for="2ndrow_inlineRadio2">2</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="2ndrow_inlineRadioOptions"
-                id="2ndrow_inlineRadio3" value="সামান্য একমত"required>
-                <label class="form-check-label" for="2ndrow_inlineRadio3">3</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="2ndrow_inlineRadioOptions"
-                 id="2ndrow_inlineRadio4" value="নিরপেক্ষ"required>
-                <label class="form-check-label" for="2ndrow_inlineRadio4">4</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="2ndrow_inlineRadioOptions"
-                 id="2ndrow_inlineRadio5" value="কিছুটা দ্বিমত"required>
-                <label class="form-check-label" for="2ndrow_inlineRadio5">5</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="2ndrow_inlineRadioOptions"
-                 id="2ndrow_inlineRadio6" value="দ্বিমত"required>
-                <label class="form-check-label" for="2ndrow_inlineRadio6">6</label>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="2ndrow_inlineRadioOptions"
-                id="2ndrow_inlineRadio7" value="দৃঢ়ভাবে দ্বিমত"required>
-                <label class="form-check-label" for="2ndrow_inlineRadio7">7</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-
-            <td>
-              <p class="ptextcolor">আমি আমার জীবন নিয়ে সন্তুষ্ট</p>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="3rdrow_inlineRadioOptions" id="3rdrow_inlineRadio1" value="দৃঢ়ভাবে একমত"required>
-
-                <label class="form-check-label" for="3rdrow_inlineRadio1">1</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="3rdrow_inlineRadioOptions" id="3rdrow_inlineRadio2" value="একমত"required>
-                <label class="form-check-label" for="3rdrow_inlineRadio2">2</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="3rdrow_inlineRadioOptions" id="3rdrow_inlineRadio3" value="সামান্য একমত"required>
-                <label class="form-check-label" for="3rdrow_inlineRadio3">3</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="3rdrow_inlineRadioOptions" id="3rdrow_inlineRadio4" value="নিরপেক্ষ"required>
-                <label class="form-check-label" for="3rdrow_inlineRadio4">4</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="3rdrow_inlineRadioOptions" id="3rdrow_inlineRadio5" value="কিছুটা দ্বিমত"required>
-                <label class="form-check-label" for="3rdrow_inlineRadio5">5</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="3rdrow_inlineRadioOptions" id="3rdrow_inlineRadio6" value="দ্বিমত"required>
-                <label class="form-check-label" for="3rdrow_inlineRadio6">6</label>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="3rdrow_inlineRadioOptions" id="3rdrow_inlineRadio7" value="দৃঢ়ভাবে দ্বিমত"required>
-                <label class="form-check-label" for="3rdrow_inlineRadio7">7</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-
-            <td>
-              <p class="ptextcolor">এখন পর্যন্ত আমার এই জীবনের জন্য গুরুত্বপূর্ণ/প্রয়োজনীয় সব কিছুই আমি পেয়েছি</p>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="4throw_inlineRadioOptions" id="4throw_inlineRadio1" value="দৃঢ়ভাবে একমত	"required>
-
-                <label class="form-check-label" for="4throw_inlineRadio1">1</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="4throw_inlineRadioOptions" id="4throw_inlineRadio2" value="একমত"required>
-                <label class="form-check-label" for="4throw_inlineRadio2">2</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="4throw_inlineRadioOptions" id="4throw_inlineRadio3" value="সামান্য একমত"required>
-                <label class="form-check-label" for="4throw_inlineRadio3">3</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="4throw_inlineRadioOptions" id="4throw_inlineRadio4" value="নিরপেক্ষ"required>
-                <label class="form-check-label" for="4throw_inlineRadio4">4</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="4throw_inlineRadioOptions" id="4throw_inlineRadio5" value="কিছুটা দ্বিমত"required>
-                <label class="form-check-label" for="4throw_inlineRadio5">5</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="4throw_inlineRadioOptions" id="4throw_inlineRadio6" value="দ্বিমত"required>
-                <label class="form-check-label" for="4throw_inlineRadio6">6</label>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="4throw_inlineRadioOptions" id="4throw_inlineRadio7" value="দৃঢ়ভাবে দ্বিমত"required>
-                <label class="form-check-label" for="4throw_inlineRadio7">7</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-
-            <td>
-              <p class="ptextcolor">যদি এই জীবন নতুন করে শুরু করা সম্ভব হয়, তবে আমি এতে প্রায় কোনও পরিবর্তনই করব না</p>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="5throw_inlineRadioOptions" id="5throw_inlineRadio1" value="দৃঢ়ভাবে একমত"required>
-
-                <label class="form-check-label" for="5throw_inlineRadio1">1</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="5throw_inlineRadioOptions" id="5throw_inlineRadio2" value="একমত"required>
-                <label class="form-check-label" for="5throw_inlineRadio2">2</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="5throw_inlineRadioOptions" id="5throw_inlineRadio3" value="সামান্য একমত"required>
-                <label class="form-check-label" for="5throw_inlineRadio3">3</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="5throw_inlineRadioOptions" id="5throw_inlineRadio4" value="নিরপেক্ষ"required>
-                <label class="form-check-label" for="5throw_inlineRadio4">4</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="5throw_inlineRadioOptions" id="5throw_inlineRadio5" value="কিছুটা দ্বিমত"required>
-                <label class="form-check-label" for="5throw_inlineRadio5">5</label>
-              </div>
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="5throw_inlineRadioOptions" id="5throw_inlineRadio6" value="দ্বিমত"required>
-                <label class="form-check-label" for="5throw_inlineRadio6">6</label>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="5throw_inlineRadioOptions" id="5throw_inlineRadio7" value="দৃঢ়ভাবে দ্বিমত"required>
-                <label class="form-check-label" for="5throw_inlineRadio7">7</label>
-              </div>
-            </td>
-          </tr>
         </tbody>
       </table>
 

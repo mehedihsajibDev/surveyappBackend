@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Onlyhome;
 
+use App\Home_Single;
 use Illuminate\Http\Request;
 
-class Myhomeconroller extends Controller
+class SingleHome extends Controller
 {
-    public function onlyhomeactivity(Request $request){
+    public function firsthome(){
+        return view('home');
+    }
+    public function singlehome(Request $request){
 
         $request->validate([
             'starttime' => 'required',
@@ -28,7 +31,7 @@ class Myhomeconroller extends Controller
         ]);
 
 
-        $category=new Onlyhome;
+        $category=new Home_Single();
         $category->user_id = auth()->user()->id; //sync with user
         $category->start_time = $request->input('starttime');
         $category->end_time = $request->input('endtime');
@@ -40,14 +43,12 @@ class Myhomeconroller extends Controller
         $category->save();
 
 
-        return view('homeORtrip');
-        
+        return view('home');
+
 
           }
           public function __construct()
           {
               $this->middleware('auth');
           }
- }
-
-
+}

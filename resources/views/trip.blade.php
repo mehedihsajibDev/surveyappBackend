@@ -49,7 +49,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
        });
 </script>
 <script type="text/javascript">
-       $(document).ready(function(){$('#stepExample2').timepicker({ 'step': 15 });});</script>
+       $(document).ready(function(){$('#stepExample2').timepicker({ 'step': 15,'scrollDefault': 'now'  });});</script>
 </head>
 <body>
   <style>
@@ -97,7 +97,7 @@ th, td {
 </style>
 
 
-<form action="{{route('trippost')}}" method="POST">
+<form action="{{route('trippost')}}" method="POST"id="myform">
  @csrf
 
   <div class="container" style="max-width: 780px; margin-top: 30px;">
@@ -115,10 +115,26 @@ th, td {
 
     </tr>
     <tr>
+
         <td>  <label for="time" class="text-success">ট্রিপ নম্বর</label></td>
     </tr>
       <tr>
-        <td><input type="text" name="tripno" class="form-control"></td>
+
+        <td>
+           @php
+
+            $newtrip=\App\TripactivityModel::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
+
+            @endphp
+            @if (empty($newtrip->user_id))
+            <input type="text" name="tripno" class="form-control" value="1">
+            @else
+
+            <input type="text" name="tripno" class="form-control" value="{{($newtrip->tripno)+1}}">
+
+            @endif
+
+        </td>
 
       </tr>
     </thead>
@@ -132,8 +148,38 @@ th, td {
             <td>
 
                 <div>
-                    <div style="float: left;">
-                        <input type="text" id="stepExample1" name="starttime" placeholder="10:00am">
+
+
+
+                    @php
+            $time1=\App\Onlyhome::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
+        @endphp
+         @php
+       $time2=\App\TripactivityModel::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
+        @endphp
+
+            @if (empty($time2->user_id)&&empty($time1->user_id))
+            <input  type="text" id="stepExample1" name="starttime" value="08:30">
+              @else
+              @if (empty($time1->user_id))
+              <input readonly type="text" id="stepExample1" name="starttime" value="{{$time1->end_time}}">
+              @else
+              @if (empty($time2->user_id))
+              <input readonly type="text" id="stepExample1" name="starttime" value="{{$time1->end_time}}">
+              @else
+              @if($time2->endtime<$time1->end_time)
+            <input readonly type="text" id="stepExample1" name="starttime" value="{{$time1->end_time}}">
+              @elseif($time2->endtime>$time1->end_time)
+            <input readonly type="text" id="stepExample1" name="starttime" value="{{$time2->endtime}}">
+
+            @endif
+            @endif
+            @endif
+            @endif
+            @error('starttime')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+
                     </div>
                 </div>
                 @error('starttime')
@@ -188,24 +234,26 @@ th, td {
   <tr>
   <td>
       <div>
-  <select class="form-select " name="transport" style="font-size: 14px;" name="transport">
+  <select class="form-select "  id="type" style="font-size: 14px;" name="transport">
+
     <optgroup class="selectfont">
         <option></option>
-  <option value="পায়ে হেঁটে">পায়ে হেঁটে</option>
-  <option value="রিকশা">রিকশা  </option>
-  <option value="বাইসাইকেল">বাইসাইকেল</option>
-  <option value="মোটর সাইকেল">মোটর সাইকেল </option>
-  <option value="5">প্রাইভেট কার নিজে চালিয়ে</option>
-  <option value="প্রাইভেট কার নিজে চালিয়ে">প্রাইভেট কার সহ যাত্রী </option>
-  <option value="প্রাইভেট কার ড্রাইভার চালিয়ে">প্রাইভেট কার ড্রাইভার চালিয়ে</option>
-  <option value="গণ-পরিবহন (বাস/মিনিবাস/ট্রেন )">গণ-পরিবহন (বাস/মিনিবাস/ট্রেন )</option>
-  <option value="স্কুল/কলেজ/বিশ্ববিদ্যালয়/স্টাফ পরিবহন ">স্কুল/কলেজ/বিশ্ববিদ্যালয়/স্টাফ পরিবহন  </option>
-  <option value="রাইড শেয়ারিং(উবার, পাঠাও)">রাইড শেয়ারিং(উবার, পাঠাও) </option>
-  <option value="সাইকেল শেয়ারিং (জো বাইক)">সাইকেল শেয়ারিং (জো বাইক) </option>
-  <option value="ট্যাক্সি/সিএনজি">ট্যাক্সি/সিএনজি</option>
-  <option value="নৌযান (নৌকা/লঞ্চ/স্পীডবোট)">নৌযান (নৌকা/লঞ্চ/স্পীডবোট) </option>
-    <option value="অন্য কোনো ">অন্য কোনো   </option>
+  <option value="1">পায়ে হেঁটে</option>
+  <option value="2">রিকশা  </option>
+  <option value="3">বাইসাইকেল</option>
+  <option value="4">মোটর সাইকেল </option>
+  {{-- <option value="5">প্রাইভেট কার নিজে চালিয়ে</option>
+  <option value="6">প্রাইভেট কার সহ যাত্রী </option>
+  <option value="7">প্রাইভেট কার ড্রাইভার চালিয়ে</option>
+  <option value="8">গণ-পরিবহন (বাস/মিনিবাস/ট্রেন )</option>
+  <option value="9">স্কুল/কলেজ/বিশ্ববিদ্যালয়/স্টাফ পরিবহন  </option>
+  <option value="10">রাইড শেয়ারিং(উবার, পাঠাও) </option>
+  <option value="11">সাইকেল শেয়ারিং (জো বাইক) </option>
+  <option value="12">ট্যাক্সি/সিএনজি</option>
+  <option value="13">নৌযান (নৌকা/লঞ্চ/স্পীডবোট) </option>
+    <option value="অন্য কোনো ">অন্য কোনো </option> --}}
 </optgroup>
+
   </select>
   @error('transport')
   <span class="text-danger">{{$message}}</span>
@@ -213,52 +261,16 @@ th, td {
   </div>
  </td>
  </tr>
- <tr>
-    <th><p class="text-success">কার্য<p></th>
-    </tr>
-       <tr>
-       <td>
-           <div>
 
-   <select class="form-select" style="font-size: 14px;" name="task">
-    <optgroup class="selectfont">
-    <option></option>
-    <option value="ঘুম">ঘুম </option>
-    <option value="খাদ্য ও পানীয় গ্রহণ">খাদ্য ও পানীয় গ্রহণ:  </option>
-
-    <option value="ব্যক্তিগত যত্ন / কাজ">ব্যক্তিগত যত্ন / কাজ </option>
-     <option value="নিজে গৃহস্থলীর কাজ করা">নিজে গৃহস্থলীর কাজ করা </option>
-    <option value="মোবাইল ফোন সম্পর্কিত/ সংশ্লিষ্ট কাজ ">মোবাইল ফোন সম্পর্কিত/ সংশ্লিষ্ট কাজ </option>
-    <option value="গৃহস্থলীর সদস্যদের সাহায্য করা ">গৃহস্থলীর সদস্যদের সাহায্য করা  </option>
-     <option value="ধর্মীয় কার্যক্রম">ধর্মীয় কার্যক্রম </option>
-    <option value="শপিং বা বাজার করা (দোকানে, ফোনে এবং অনলাইনে">শপিং বা বাজার করা (দোকানে, ফোনে এবং অনলাইনে) </option>
-    <option value="শিক্ষা">শিক্ষা </option>
-     <option value="চাকরি / ব্যবসা ও সংশ্লিষ্ট কার্যক্রম">চাকরি / ব্যবসা ও সংশ্লিষ্ট কার্যক্রম </option>
-    <option value="সামাজিক যোগাযোগ ">সামাজিক যোগাযোগ </option>
-    <option value="অবসর বিনোদন, অবকাশ যাপন">অবসর বিনোদন, অবকাশ যাপন </option>
-       <option value="খেলাধূলা / ব্যায়াম / প্রাতঃ ভ্রমন">খেলাধূলা / ব্যায়াম / প্রাতঃ ভ্রমন </option>
-    <option value="চিকিৎসা সেবা গ্রহণ ">চিকিৎসা সেবা গ্রহণ  </option>
-    <option value="বেসরকারি সেবা গ্রহণ (চিকিৎসা ব্যতীত)">বেসরকারি সেবা গ্রহণ (চিকিৎসা ব্যতীত)</option>
-     <option value="সরকারি ও নাগরিক সেবা গ্রহণ (চিকিৎসা ব্যতীত)">সরকারি ও নাগরিক সেবা গ্রহণ (চিকিৎসা ব্যতীত) </option>
-    <option value="গৃহস্থলীর বাহিরের কাউকে সাহায্য করা">গৃহস্থলীর বাহিরের কাউকে সাহায্য করা  </option>
-    <option value="স্বেচ্ছাসেবীর কাজ / সমাজসেবা">স্বেচ্ছাসেবীর কাজ / সমাজসেবা </option>
-    </optgroup>
-  </select>
-  @error('task')
-  <span class="text-danger">{{$message}}</span>
-  @enderror
-  </div>
-  </td>
-       </tr>
-  <tr>
   <th><p class="text-success">মাল্টিটাস্কিং / যৌথ কার্য :<p></th>
   </tr>
 
   <tr>
   <td>
-  <select class="form-select " style="font-size: 14px;" name="multitask">
+  <select class="form-select " style="font-size: 14px;" name="multitask" id="size">
 <option></option>
-  <option value="1">শিক্ষা ও সংশ্লিষ্ট কার্যক্রম </option>
+
+  {{-- <option value="1">শিক্ষা ও সংশ্লিষ্ট কার্যক্রম </option>
   <option value="2">চাকুরী বা ব্যবসায়িক কাজ করা </option>
   <option value="3">অনলাইনে/ফোনে কেনাকাটা</option>
   <option value="4">পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা</option>
@@ -281,12 +293,31 @@ th, td {
   <option value="21">বন্ধু/পরিবারের সাথে কথা বলা   </option>
   <option value="22"> অন্য যাত্রীদের সাথে কথা বলা  </option>
   <option value="23"> অন্য কোনো  কিছু করা  </option>
-  <option value="24">কিছুই না করা   </option>
+  <option value="24">কিছুই না করা   </option> --}}
 
   </select>
   @error('multitask')
             <span class="text-danger">{{$message}}</span>
             @enderror
+            <script type="text/javascript">
+                $(document).ready(function () {
+                $("#type").change(function () {
+                    var val = $(this).val();
+                    if (val == "1") {
+                        $("#size").html("<option value='1'>ব্যক্তিগত ফোন কল/মেসেজ</option> <option value='2'>পানীয়/খাদ্যগ্রহণ</option> <option value='3'>সৃজনশীল চিন্তাভাবনা করা</option>");
+
+                        }
+                        else if (val == "2") {
+                        $("#size").html("<option value='4'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='5'>ডিজিটাল বই/পত্রিকা  পড়া</option>");
+                    } else if (val == "3") {
+                        $("#size").html("<option value='6'>অনলাইনে/ফোনে কেনাকাটা</option><option value='7'>ব্যক্তিগত ফোন কল/মেসেজ</option>");
+                    } else if (val == "4") {
+                        $("#size").html("<option value='6'>অনলাইনে/ফোনে কেনাকাটা</option><option value='7'>ব্যক্তিগত ফোন কল/মেসেজ</option>");
+            
+                    }
+                });
+            });
+            </script>
 </td>
  </tr>
 
@@ -335,8 +366,8 @@ th, td {
   <option value="2">সন্তান</option>
   <option value="3">পিতামাতা </option>
    <option value="4">বাড়ির অন্য বাসিন্দা </option>
-  <option value="5">আত্মীয়   </option>
-  <option value="6">বন্ধুবান্ধব  </option>
+  <option value="5">আত্মীয় </option>
+  <option value="6">বন্ধুবান্ধব </option>
   <option value="6">অন্য কোনো পরিচিত  </option>
   <option value="6">অপরিচিত কেউ</option>
 
@@ -850,116 +881,123 @@ TICK the box that best describes your experience:</label>
   </td>
 </tr>
 <tr>
-  <td><div class="form-group text-center">
-        <input type="submit" name="submit" class="btn btn-info btn-md mt-3 " value="submit"><br>
+    <td>
+ <tr>
+     <td>
+            <div class="form-group text-center">
+                <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
+                    <div class="container text-center" style="width: 400px;" >
+                      <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
+                    </div>
+                    <div class="container text-center"style="width: 400px;">
+             <a href="javascript:;" data-toggle="modals" data-target="#myModals"
+                      onclick="document.getElementById('myform').submit()">
 
-      </div></td>
+                          <span class="text-success"> Yes</span>
+                          <span class="moreactivity text-primary">
+
+                    <div class="modal fade" id="myModal" role="dialog" >
+                          <div class="modal-dialog modal-sm" >
+                            <div class="modal-content">
+                              <div class="modal-header" >
+                                <button type="button" class="close" data-dismiss="modal"></button>
+                                <h3 class="modal-title" style="font-size: 18px;">Did you have Home activity or Trip?
+                                </h3>
+                              </div>
+                              <div class="modal-body">
+                                <div class="">
+                            <div class="">
+                              <div class="action-bar" >
+                          <a href="{{route('home_secondpart')}}" class="text-success">
+                              <i class="fa fa-home"></i>
+                              Home
+                          </a>
+
+                              <i class="fa fa-car invisible"></i>
+
+
+                          <a href="{{route('trip_part')}}" class="text-danger">
+                              <i class="fa fa-car"></i>
+                              Trip
+                          </a>
+                             </div>
+
+                            </div>
+
+                            </div>
+                              </div>
+                               <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+
+                        </a>
+
+
+
+
+                      <a href="#" id="nobtn" data-toggle="modal" data-target="#myModals" style="padding-left: 8px;><span class="text-primary">
+                         <span class="text-danger"> No</span>
+                       <span class="moreactivity text-primary">
+
+                           <div class="modal fade" id="myModals" role="dialog" >
+                               <div class="modal-dialog modal-sm" >
+                                 <div class="modal-content">
+                                   <div class="modal-header" >
+                                     <button type="button" class="close" data-dismiss="modal"></button>
+
+                                   </div>
+                                   <div class="modal-body">
+                                     <div class="">
+                                        <h3 class="text-center" style="font-size: 18px;">
+
+                                          </h3>
+
+                                      <?php
+                                   date_default_timezone_set('Asia/Dhaka');
+                                   $time=date('Hi');
+
+                                   if(($time >="2350")&&($time>="2400")): ?>
+                               <small>Okk.You can Go Now</small><br><br>
+                                   <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                                    <p style="color: brown">Logout</p>
+                                   </a>
+
+                                   <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                   {{ csrf_field() }}
+                                   </form>
+                                    <?php endif; ?>
+                                    Your Task is pending.Please fill up your all record till 12:00am.
+
+                                 </div>
+                                   </div>
+                                    <div class="modal-footer">
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">
+                                         <a href="{{route('home_secondpart')}}">Close</a>
+                                       </button>
+                                     </div>
+                                 </div>
+                               </div>
+                             </div>
+                           </span>
+                          </a>
+                    </div>
+
+                  </div>
+                </div></td>
+          </tr>
+    </td>
 </tr>
+
     </tbody>
   </table>
 </div>
 </div>
 </form>
-  <div class="2nd div" style="margin-bottom:50px;margin-top:-10px;" >
-    <div class="container text-center" style="width: 400px;" >
-      <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
-    </div>
-    <div class="container text-center"style="width: 400px;">
-      <a href="#" data-toggle="modal" data-target="#myModal">
 
-          <span class="text-success"> Yes</span>
-          <span class="moreactivity text-primary">
-
-        <div class="modal fade" id="myModal" role="dialog" >
-          <div class="modal-dialog modal-sm" >
-            <div class="modal-content">
-              <div class="modal-header" >
-                <button type="button" class="close" data-dismiss="modal"></button>
-                <h3 class="modal-title" style="font-size: 18px;">Did you have Home activity or Trip?
-                </h3>
-              </div>
-              <div class="modal-body">
-                <div class="">
-            <div class="">
-              <div class="action-bar" >
-          <a href="{{route('home_secondpart')}}" class="text-success">
-              <i class="fa fa-home"></i>
-              Home
-          </a>
-
-              <i class="fa fa-car invisible"></i>
-
-
-          <a href="{{route('trip_part')}}" class="text-danger">
-              <i class="fa fa-car"></i>
-              Trip
-          </a>
-             </div>
-
-            </div>
-
-            </div>
-              </div>
-               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-          </div>
-        </div>
-
-          </span>
-        </a>
-
-
-
-
-      <a href="#" id="nobtn" data-toggle="modal" data-target="#myModals" style="padding-left: 8px;><span class="text-primary">
-         <span class="text-danger"> No</span>
-       <span class="moreactivity text-primary">
-
-           <div class="modal fade" id="myModals" role="dialog" >
-               <div class="modal-dialog modal-sm" >
-                 <div class="modal-content">
-                   <div class="modal-header" >
-                     <button type="button" class="close" data-dismiss="modal"></button>
-
-                   </div>
-                   <div class="modal-body">
-                     <div class="">
-                        <h3 class="text-center" style="font-size: 18px;">
-
-                          </h3>
-
-                      <?php
-                   date_default_timezone_set('Asia/Dhaka');
-                   $time=date('Hi');
-
-                   if(($time >="2350")&&($time>="2400")): ?>
-               <small>Okk.You can Go Now</small><br><br>
-                   <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
-                    <p style="color: brown">Logout</p>
-                   </a>
-
-                   <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                   {{ csrf_field() }}
-                   </form>
-                    <?php endif; ?>
-                    Your Task is pending.Please fill up your all record till 12:00am.
-
-                 </div>
-                   </div>
-                    <div class="modal-footer">
-                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                         <a href="{{route('home')}}">Close</a>
-                       </button>
-                     </div>
-                 </div>
-               </div>
-             </div>
-           </span>
-          </a>
-    </div>
-  </div>
   <script type="text/javascript">
     function timePicker(id){
        var input = document.getElementById(id);
@@ -987,6 +1025,7 @@ TICK the box that best describes your experience:</label>
              </div>
           </div>
           <div id="submitTime" class=" text-success" style="padding-left:40px;">Set time</div>`;
+
           this.after(timePicker);
           var plusH = document.getElementById('plusH');
           var minusH = document.getElementById('minusH');

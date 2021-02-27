@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 use App\TripactivityModel;
+use App\Onlyhome;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeandTripController extends Controller
 {
     public function home_second(){
+
         return view('secondhome');
     }
     public function trip_parts(){
+
         return view('trip');
     }
     public function tripposts(Request $request){
 
 
  $request->validate([
-            'tripno' => 'required',
-            'starttime' => 'required',
+
+
             'endtime' => 'required',
             'task'=>'required',
             'multitask' => 'required',
@@ -40,8 +45,7 @@ class HomeandTripController extends Controller
            ],
 
         [
-            'tripno.required' => 'please enter your tripno ',
-            'starttime.required' => 'please enter your starttime name',
+
             'endtime.required' => 'please enter your endtime name',
             'task.required' => 'please enter your task name',
 
@@ -85,11 +89,11 @@ class HomeandTripController extends Controller
         $category->q7value = $request->input('q7value');
         $category->q8value = $request->input('q8value');
         $category->save();
-
-        return Redirect()->back()->with('successs','Your data is ');
-
-
+        return view('homeORtrip');
         }
-
+        public function __construct()
+        {
+            $this->middleware('auth');
+        }
 
 }
