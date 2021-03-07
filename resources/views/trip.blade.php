@@ -97,7 +97,7 @@ th, td {
 </style>
 
 
-<form action="{{route('trippost')}}" method="POST"id="myform">
+ <form action="{{route('trippost')}}" method="POST" id="myform">
  @csrf
 
   <div class="container" style="max-width: 780px; margin-top: 30px;">
@@ -304,16 +304,16 @@ th, td {
                 $("#type").change(function () {
                     var val = $(this).val();
                     if (val == "1") {
-                        $("#size").html("<option value='1'>ব্যক্তিগত ফোন কল/মেসেজ</option> <option value='2'>পানীয়/খাদ্যগ্রহণ</option> <option value='3'>সৃজনশীল চিন্তাভাবনা করা</option>");
+                        $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>ব্যক্তিগত ফোন কল/মেসেজ</option> <option value='2'>পানীয়/খাদ্যগ্রহণ</option> <option value='3'>সৃজনশীল চিন্তাভাবনা করা</option>");
 
                         }
                         else if (val == "2") {
-                        $("#size").html("<option value='4'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='5'>ডিজিটাল বই/পত্রিকা  পড়া</option>");
+                        $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='5'>ডিজিটাল বই/পত্রিকা  পড়া</option>");
                     } else if (val == "3") {
-                        $("#size").html("<option value='6'>অনলাইনে/ফোনে কেনাকাটা</option><option value='7'>ব্যক্তিগত ফোন কল/মেসেজ</option>");
+                        $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>অনলাইনে/ফোনে কেনাকাটা</option><option value='7'>ব্যক্তিগত ফোন কল/মেসেজ</option>");
                     } else if (val == "4") {
-                        $("#size").html("<option value='6'>অনলাইনে/ফোনে কেনাকাটা</option><option value='7'>ব্যক্তিগত ফোন কল/মেসেজ</option>");
-            
+                        $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>অনলাইনে/ফোনে কেনাকাটা</option><option value='7'>ব্যক্তিগত ফোন কল/মেসেজ</option>");
+
                     }
                 });
             });
@@ -880,122 +880,81 @@ TICK the box that best describes your experience:</label>
 
   </td>
 </tr>
+
 <tr>
     <td>
- <tr>
-     <td>
-            <div class="form-group text-center">
-                <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
-                    <div class="container text-center" style="width: 400px;" >
-                      <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
-                    </div>
-                    <div class="container text-center"style="width: 400px;">
-             <a href="javascript:;" data-toggle="modals" data-target="#myModals"
-                      onclick="document.getElementById('myform').submit()">
+           <div class="form-group text-center">
+               <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
+                   <div class="container text-center" style="width: 400px;" >
+                     <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
+                   </div>
+                   <div class="container text-center"style="width: 400px;">
 
-                          <span class="text-success"> Yes</span>
-                          <span class="moreactivity text-primary">
+                       <a href="javascript:;"  onclick="document.getElementById('myform').submit()">
 
-                    <div class="modal fade" id="myModal" role="dialog" >
-                          <div class="modal-dialog modal-sm" >
-                            <div class="modal-content">
-                              <div class="modal-header" >
-                                <button type="button" class="close" data-dismiss="modal"></button>
-                                <h3 class="modal-title" style="font-size: 18px;">Did you have Home activity or Trip?
-                                </h3>
-                              </div>
-                              <div class="modal-body">
-                                <div class="">
-                            <div class="">
-                              <div class="action-bar" >
-                          <a href="{{route('home_secondpart')}}" class="text-success">
-                              <i class="fa fa-home"></i>
-                              Home
-                          </a>
-
-                              <i class="fa fa-car invisible"></i>
+                         <span class="text-success"> Yes</span>
+                       </a>
 
 
-                          <a href="{{route('trip_part')}}" class="text-danger">
-                              <i class="fa fa-car"></i>
-                              Trip
-                          </a>
-                             </div>
 
-                            </div>
 
-                            </div>
-                              </div>
-                               <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     <a href="#" id="nobtn" data-toggle="modal" data-target="#myModals" style="padding-left: 8px;><span class="text-primary">
+                        <span class="text-danger"> No</span>
+                      <span class="moreactivity text-primary">
+
+                          <div class="modal fade" id="myModals" role="dialog" >
+                              <div class="modal-dialog modal-sm" >
+                                <div class="modal-content">
+                                  <div class="modal-header" >
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="">
+                                       <h3 class="text-center" style="font-size: 18px;">
+
+                                         </h3>
+
+                                     <?php
+                                  date_default_timezone_set('Asia/Dhaka');
+                                  $time=date('Hi');
+
+                                  if(($time >="2350")&&($time>="2400")): ?>
+                              <small>Okk.You can Go Now</small><br><br>
+                                  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                                   <p style="color: brown">Logout</p>
+                                  </a>
+
+                                  <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                  {{ csrf_field() }}
+                                  </form>
+                                   <?php endif; ?>
+                                   Your Task is pending.Please fill up your all record till 12:00am.
+
                                 </div>
+                                  </div>
+                                   <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        <a href="{{route('home_secondpart')}}">Close</a>
+                                      </button>
+                                    </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </span>
+                          </span>
+                         </a>
+                   </div>
 
-                        </a>
-
-
-
-
-                      <a href="#" id="nobtn" data-toggle="modal" data-target="#myModals" style="padding-left: 8px;><span class="text-primary">
-                         <span class="text-danger"> No</span>
-                       <span class="moreactivity text-primary">
-
-                           <div class="modal fade" id="myModals" role="dialog" >
-                               <div class="modal-dialog modal-sm" >
-                                 <div class="modal-content">
-                                   <div class="modal-header" >
-                                     <button type="button" class="close" data-dismiss="modal"></button>
-
-                                   </div>
-                                   <div class="modal-body">
-                                     <div class="">
-                                        <h3 class="text-center" style="font-size: 18px;">
-
-                                          </h3>
-
-                                      <?php
-                                   date_default_timezone_set('Asia/Dhaka');
-                                   $time=date('Hi');
-
-                                   if(($time >="2350")&&($time>="2400")): ?>
-                               <small>Okk.You can Go Now</small><br><br>
-                                   <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
-                                    <p style="color: brown">Logout</p>
-                                   </a>
-
-                                   <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                   {{ csrf_field() }}
-                                   </form>
-                                    <?php endif; ?>
-                                    Your Task is pending.Please fill up your all record till 12:00am.
-
-                                 </div>
-                                   </div>
-                                    <div class="modal-footer">
-                                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                                         <a href="{{route('home_secondpart')}}">Close</a>
-                                       </button>
-                                     </div>
-                                 </div>
-                               </div>
-                             </div>
-                           </span>
-                          </a>
-                    </div>
-
-                  </div>
-                </div></td>
-          </tr>
-    </td>
-</tr>
+                 </div>
+               </div>
+           </td>
+         </tr>
 
     </tbody>
   </table>
 </div>
 </div>
+
 </form>
 
   <script type="text/javascript">

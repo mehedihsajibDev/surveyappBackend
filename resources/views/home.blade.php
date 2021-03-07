@@ -135,7 +135,7 @@ id="myform" >
 
 
                 @if (empty($time->user_id))
-                <input type="text" id="stepExample1" name="starttime" value="12:00am">
+                <input readonly type="text" id="stepExample1" name="starttime" value="12:00am">
                   @else
                 <input readonly type="text"   id="stepExample1" name="starttime"  value=" {{$time->end_time}}" >
                 @endif
@@ -143,7 +143,9 @@ id="myform" >
             </div>
 
         </div>
+
      {{-- <input type="time" name="starttime" id="time"/> --}}
+
      </td>
      </tr>
     <tr>
@@ -239,9 +241,7 @@ id="myform" >
   <option value="কিছুই না করা">কিছুই না করা   </option>
   </optgroup>
   </select>
-       @error('multitask')
-      <span class="text-danger">{{$message}}</span>
-       @enderror
+
          </div>
   </td>
   </tr>
@@ -266,14 +266,12 @@ id="myform" >
   </optgroup>
 
 </select>
-  @error('copartner')
-  <span class="text-danger">{{$message}}</span>
-  @enderror
+
 </td>
 </tr>
 <tr>
   <td>
-      <label for="text" class="text-success">Expenditure / Cost (Optional)</label>
+      <label for="text" class="text-success">অর্থব্যয় (ঐচ্ছিক)</label>
 
   </td>
 </tr>
@@ -285,7 +283,7 @@ id="myform" >
   </tr>
   <tr>
   <td>
-      <label for="text" class="text-success">Reasons behind the Expenditure / Cost (Optional)</label>
+      <label for="text" class="text-success">ব্যয়ের পিছনে কারণগুলি (ঐচ্ছিক)</label>
   </td>
 </tr>
 <tr>
@@ -293,17 +291,19 @@ id="myform" >
   <input type="text" name="Reasons_Expenditurecost" id="Reasons_Expenditurecost" />
     </td>
   </tr>
+  <tr>
+      <td></td>
+  </tr>
 <tr>
     <td>
-        <tr>
-            <td>
-           
+
+
                 <div class="2nd div" style="max-width: 780px;margin-bottom:50px;margin-top:-10px;" >
                     <div class="container text-center" style="width: 400px;" >
                       <h3 class="text-primary" style="font-size: 18px">Do you Have Another Activity?</h3>
                     </div>
                     <div class="container text-center"style="width: 400px;">
-                        <a href="javascript:;" onclick="document.getElementById('myform').submit()"><span class="text-success"> Yes</span></a>
+                        <a href="javascript:" onclick="document.getElementById('myform').submit()"><span class="text-success"> Yes</span></a>
                       <a href="#" id="nobtn" data-toggle="modal" data-target="#myModal" style="padding-left: 8px;><span class="text-danger"> No</span>
                        <span class="moreactivity text-primary">
 
@@ -351,8 +351,6 @@ id="myform" >
                     </div>
                   </div>
 
-            </td>
-          </tr>
     </td>
 </tr>
 
@@ -361,7 +359,45 @@ id="myform" >
 </table>
 </form>
 
+<table class="table table-striped">
+    <thead>
+<h4 class="text text-success text-center p-2"><u > Your recent activities </u> </h4>
+      <tr>
 
+        <th scope="col">start_time</th>
+        <th scope="col">end_time</th>
+        <th scope="col">task</th>
+        <th scope="col">multitaask</th>
+        <th scope="col">cost</th>
+        <th scope="col">reason_cost</th>
+        <th scope="col">copartner</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        @php
+ $tbldata=\App\Home_Single::where('user_id',Auth::User()->id)->orderby('id','desc')->get()
+
+        @endphp
+
+
+            @foreach ($tbldata as $tbldatas)
+            <tr>
+            <td>{{$tbldatas->start_time}}</td>
+            <td>{{$tbldatas->end_time}}</td>
+            <td>{{$tbldatas->task}}</td>
+            <td>{{$tbldatas->multitaask}}</td>
+            <td>{{$tbldatas->cost}}</td>
+            <td>{{$tbldatas->reason_cost}}</td>
+            <td>{{$tbldatas->copartner}}</td>
+            </tr>
+
+            @endforeach
+
+
+
+    </tbody>
+  </table>
 
 
 <script type="text/javascript">

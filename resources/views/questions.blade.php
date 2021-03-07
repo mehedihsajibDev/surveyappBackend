@@ -82,13 +82,13 @@ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
 
             <td>
               <p class="ptextcolor">{{$questionget->question_title}}</p>
-          
+
             </td>
             @foreach($answer as $ansget)
             <td>
               <div class="form-check form-check-inline">
 
-                <input class="form-check-input" id="ans{{$key}}" type="radio" name="answere_id[{{$key}}]" value="{{$ansget->id}}"
+     <input class="form-check-input" id="ans{{$key}}" type="radio" required  name="answere_id[{{$key}}]" value="{{$ansget->id}} "
                 >
 
                 <label class="form-check-label" for="1strow_inlineRadio1">{{$ansget->id}}</label>

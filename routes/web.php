@@ -29,8 +29,12 @@ Route::get('/', 'QuestionsController@questions')->name('bgquestion');
 
 Route::get('home', 'HomeController@index')->name('home');
 Route::post('onlyhome', 'Myhomeconroller@onlyhomeactivity')->name('homeonly');
+
 Route::get('firsthome', 'SingleHome@firsthome')->name('firsthome');
+
 Route::post('home_single', 'SingleHome@singlehome')->name('home_single');
 Route::resource('questionans', 'QuestionAnsController');
+
+
 
 

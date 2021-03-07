@@ -19,7 +19,7 @@ class CreateTripactivityModelsTable extends Migration
             $table->integer('tripno')->default(0);
             $table->string('starttime',100);
             $table->string('endtime',100);
-            $table->string('task',100);
+           
             $table->string('multitaask',100);
             $table->string('ticketprice',100);
             $table->string('adresses',100);

@@ -16,8 +16,7 @@ class SingleHome extends Controller
             'starttime' => 'required',
             'endtime' => 'required',
             'task' => 'required',
-            'copartner'=>'required',
-            'multitask' => 'required',
+
 
 
            ],
@@ -26,7 +25,7 @@ class SingleHome extends Controller
             'starttime.required' => 'please enter your starttime name',
             'endtime.required' => 'please enter your endtime name',
             'task.required' => 'please enter your task name',
-            'multitask.required' => 'please enter your multitask name',
+
 
         ]);
 
@@ -43,7 +42,7 @@ class SingleHome extends Controller
         $category->save();
 
 
-        return view('home');
+        return redirect()->back();
 
 
           }

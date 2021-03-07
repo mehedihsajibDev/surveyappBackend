@@ -19,11 +19,12 @@ class CreateHomeSinglesTable extends Migration
             $table->string('start_time',100);
             $table->string('end_time',100);
             $table->string('task',100);
-            $table->string('multitaask',100);
+            $table->string('multitaask',100)->nullable();
 
             $table->string('cost',100)->nullable();
             $table->string('reason_cost',100)->nullable();
-            $table->string('copartner',100);
+            $table->string('copartner',100)->nullable();
+        
 
             $table->timestamps();
         });

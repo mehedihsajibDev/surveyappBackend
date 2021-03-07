@@ -17,14 +17,15 @@ class HomeandTripController extends Controller
 
         return view('trip');
     }
-    public function tripposts(Request $request){
+
+public function tripposts(Request $request){
 
 
- $request->validate([
+    $request->validate([
 
 
             'endtime' => 'required',
-            'task'=>'required',
+
             'multitask' => 'required',
             'ticketprice' => 'required',
             'adresses' => 'required',
@@ -47,7 +48,7 @@ class HomeandTripController extends Controller
         [
 
             'endtime.required' => 'please enter your endtime name',
-            'task.required' => 'please enter your task name',
+
 
             'multitask.required' => 'please enter your multitask name',
             'ticketprice.required' => 'please enter your ticketprice name',
@@ -69,11 +70,12 @@ class HomeandTripController extends Controller
         ]);
 
           $category=new TripactivityModel;
+
         $category->user_id = auth()->user()->id; //sync with user
         $category->tripno =$request->input('tripno');
         $category->starttime =$request->input('starttime');
         $category->endtime = $request->input('endtime');
-        $category->task = $request->input('task');
+      
         $category->multitaask = $request->input('multitask');
         $category->ticketprice = $request->input('ticketprice');
         $category->adresses = $request->input('adresses');
@@ -88,9 +90,13 @@ class HomeandTripController extends Controller
         $category->q6value = $request->input('q6value');
         $category->q7value = $request->input('q7value');
         $category->q8value = $request->input('q8value');
+
         $category->save();
+
         return view('homeORtrip');
+
         }
+
         public function __construct()
         {
             $this->middleware('auth');
