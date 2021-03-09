@@ -304,15 +304,15 @@ th, td {
                 $("#type").change(function () {
                     var val = $(this).val();
                     if (val == "1") {
-                        $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>ব্যক্তিগত ফোন কল/মেসেজ</option> <option value='2'>পানীয়/খাদ্যগ্রহণ</option> <option value='3'>সৃজনশীল চিন্তাভাবনা করা</option>");
+ $("#size").html(" <option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা </option> <option value='অন্য যাত্রীদের সাথে কথা বলা'>অন্য যাত্রীদের সাথে কথা বলা </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য  </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও)</option> <option value='শরীর চর্চা,গেমস খেলা'>শরীর চর্চা,গেমস খেলা</option> <option value='ব্যক্তিগত ফোন কল/মেসেজ'>ব্যক্তিগত ফোন কল/মেসেজ</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option><option value='কিছুই না করা'>কিছুই না করা</option> <option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option>");
 
                         }
                         else if (val == "2") {
-                        $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='5'>ডিজিটাল বই/পত্রিকা  পড়া</option>");
+ $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা'>পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option><option value='অনলাইন ব্যাংকিং '>অনলাইন ব্যাংকিং </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও) </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option> <option value='ইন্টারনেট ব্রাউজিং/ই-মেইল'>ইন্টারনেট ব্রাউজিং/ই-মেইল</option><option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option> <option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option><option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option><option value='কিছুই না করা'>কিছুই না করা</option>" );
                     } else if (val == "3") {
-                        $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>অনলাইনে/ফোনে কেনাকাটা</option><option value='7'>ব্যক্তিগত ফোন কল/মেসেজ</option>");
-                    } else if (val == "4") {
-                        $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>অনলাইনে/ফোনে কেনাকাটা</option><option value='7'>ব্যক্তিগত ফোন কল/মেসেজ</option>");
+ $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা'>পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option><option value='অনলাইন ব্যাংকিং '>অনলাইন ব্যাংকিং </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও) </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option> <option value='ইন্টারনেট ব্রাউজিং/ই-মেইল'>ইন্টারনেট ব্রাউজিং/ই-মেইল</option><option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option> <option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option><option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option><option value='কিছুই না করা'>কিছুই না করা</option>" );
+                  } else if (val == "4") {
+$("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা'>পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option><option value='অনলাইন ব্যাংকিং '>অনলাইন ব্যাংকিং </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও) </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option> <option value='ইন্টারনেট ব্রাউজিং/ই-মেইল'>ইন্টারনেট ব্রাউজিং/ই-মেইল</option><option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option> <option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option><option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option><option value='কিছুই না করা'>কিছুই না করা</option>" );
 
                     }
                 });
@@ -324,7 +324,7 @@ th, td {
        <tr>
        <td>
         <div class="leftclock">
-            <label for="time" class="text-success">Ticket price/Parking fee:</label>
+            <label for="time" class="text-success">টিকেটের মূল্য/পার্কিং ফি:</label>
       <input type="text" name="ticketprice" id="Ticketprice" class="form-control" />
      <!-- partial -->
         </div>
@@ -346,9 +346,7 @@ th, td {
 
         <tr>
         <td><textarea name="adresses" rows="3" cols="50"></textarea>
-            @error('adresses')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
+
         </td>
         </tr>
        <tr>
@@ -372,9 +370,7 @@ th, td {
   <option value="6">অপরিচিত কেউ</option>
 
   </optgroup>
-  @error('copartner')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
+
 </select>
 </td>
 </tr>

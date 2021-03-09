@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\TripactivityModel;
+use App\HomeandTrip;
 use App\Onlyhome;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -27,11 +28,11 @@ public function tripposts(Request $request){
             'endtime' => 'required',
 
             'multitask' => 'required',
-            'ticketprice' => 'required',
-            'adresses' => 'required',
+
+
             'destination' => 'required',
             'transport'=>'required',
-            'copartner' => 'required',
+
 
             'q1value' => 'required',
             'q2value'=>'required',
@@ -51,12 +52,12 @@ public function tripposts(Request $request){
 
 
             'multitask.required' => 'please enter your multitask name',
-            'ticketprice.required' => 'please enter your ticketprice name',
-            'adresses.required' => 'please enter your adresses name',
+
+
             'destination.required' => 'please enter your destination name',
 
             'transport.required' => 'please enter your transport name',
-            'copartner.required' => 'please enter your copartner name',
+
             'q1value.required' => 'please enter your q1value name',
             'q2value.required' => 'please enter your q2value name',
 
@@ -69,13 +70,13 @@ public function tripposts(Request $request){
 
         ]);
 
-          $category=new TripactivityModel;
+       $category=new TripactivityModel;
 
         $category->user_id = auth()->user()->id; //sync with user
         $category->tripno =$request->input('tripno');
         $category->starttime =$request->input('starttime');
         $category->endtime = $request->input('endtime');
-      
+
         $category->multitaask = $request->input('multitask');
         $category->ticketprice = $request->input('ticketprice');
         $category->adresses = $request->input('adresses');
@@ -92,6 +93,30 @@ public function tripposts(Request $request){
         $category->q8value = $request->input('q8value');
 
         $category->save();
+        
+        $categorytwo=new HomeandTrip;
+
+        $categorytwo->user_id = auth()->user()->id; //sync with user
+        $categorytwo->tripno =$request->input('tripno');
+        $categorytwo->starttime =$request->input('starttime');
+        $categorytwo->endtime = $request->input('endtime');
+
+        $categorytwo->multitaask = $request->input('multitask');
+        $categorytwo->ticketprice = $request->input('ticketprice');
+        $categorytwo->adresses = $request->input('adresses');
+        $categorytwo->destination = $request->input('destination');
+        $categorytwo->transport = $request->input('transport');
+        $categorytwo->copartner = $request->input('copartner');
+        $categorytwo->q1value = $request->input('q1value');
+        $categorytwo->q2value = $request->input('q2value');
+        $categorytwo->q3value = $request->input('q3value');
+        $categorytwo->q4value = $request->input('q4value');
+        $categorytwo->q5value = $request->input('q5value');
+        $categorytwo->q6value = $request->input('q6value');
+        $categorytwo->q7value = $request->input('q7value');
+        $categorytwo->q8value = $request->input('q8value');
+
+        $categorytwo->save();
 
         return view('homeORtrip');
 

@@ -143,7 +143,7 @@ id="myform">
                 @endforeach --}}
 
                 @if (empty($time->user_id))
-                <input  type="text" id="stepExample1" name="starttime" value="08:30">
+                <input readonly type="text" id="stepExample1" name="starttime" value="12:00pm">
                   @else
                   @if (empty($time2->user_id))
                   <input readonly type="text" id="stepExample1" name="starttime" value="{{$time->end_time}}">
@@ -223,7 +223,7 @@ id="myform">
      </tr>
 
    <tr>
-  <th><p class="text-success">মাল্টিটাস্কিং / যৌথ কার্য :<p></th>
+  <th><p class="text-success">মাল্টিটাস্কিং / যৌথ কার্য (ঐচ্ছিক)<p></th>
   </tr>
      <tr>
      <td>
@@ -258,14 +258,12 @@ id="myform">
   <option value="কিছুই না করা">কিছুই না করা   </option>
   </optgroup>
   </select>
-       @error('multitask')
-      <span class="text-danger">{{$message}}</span>
-       @enderror
+
          </div>
   </td>
   </tr>
   <tr>
-  <th><p class="text-success">সহকর্মী:<p></th>
+  <th><p class="text-success">সহকর্মী:(ঐচ্ছিক)<p></th>
 
   </tr>
   <tr>
@@ -276,7 +274,7 @@ id="myform">
   <option value="স্বামী/স্ত্রী">স্বামী/স্ত্রী</option>
   <option value="সন্তান">সন্তান</option>
   <option value="পিতামাতা">পিতামাতা </option>
-   <option value="বাড়ির অন্য বাসিন্দা ">বাড়ির অন্য বাসিন্দা    </option>
+   <option value="বাড়ির অন্য বাসিন্দা ">বাড়ির অন্য বাসিন্দা </option>
   <option value="আত্মীয়">আত্মীয়   </option>
   <option value="বন্ধুবান্ধব">বন্ধুবান্ধব  </option>
   <option value="অন্য কোনো পরিচিত">অন্য কোনো পরিচিত  </option>
@@ -285,14 +283,12 @@ id="myform">
   </optgroup>
 
 </select>
-  @error('copartner')
-  <span class="text-danger">{{$message}}</span>
-  @enderror
+
 </td>
 </tr>
 <tr>
   <td>
-      <label for="text" class="text-success">Expenditure / Cost (Optional)</label>
+      <label for="text" class="text-success">অর্থব্যয় (ঐচ্ছিক)</label>
 
   </td>
 </tr>
@@ -304,7 +300,7 @@ id="myform">
   </tr>
   <tr>
   <td>
-      <label for="text" class="text-success">Reasons behind the Expenditure / Cost (Optional)</label>
+      <label for="text" class="text-success">ব্যয়ের পিছনে কারণগুলি (ঐচ্ছিক)</label>
   </td>
 </tr>
 <tr>
@@ -383,14 +379,63 @@ id="myform">
             </td>
           </tr>
     </td>
-
-
 </tr>
-
 
   </tbody>
 </table>
 </form>
+
+<table class="table table-striped">
+    <thead>
+<h4 class="text text-success text-center p-2"><u > Your recent activities </u> </h4>
+      <tr>
+
+        <th scope="col">start_time</th>
+        <th scope="col">end_time</th>
+        <th scope="col">task</th>
+        <th scope="col">multitaask</th>
+        <th scope="col">tripno</th>
+        <th scope="col">cost</th>
+        <th scope="col">reason_cost</th>
+        <th scope="col">copartner</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+        @php
+ $tblhomeandtripdata=\App\HomeandTrip::where('user_id',Auth::User()->id)->orderby('created_at','asc')->get()
+
+        @endphp
+
+
+
+
+            @foreach ($tblhomeandtripdata as $tblhomeandtripdatas)
+
+            <tr>
+                <td>{{$tblhomeandtripdatas->starttime}}</td>
+                <td>{{$tblhomeandtripdatas->endtime}}</td>
+                <td>{{$tblhomeandtripdatas->task}}</td>
+
+                <td>{{$tblhomeandtripdatas->multitaask}}</td>
+                <td>{{$tblhomeandtripdatas->tripno}}</td>
+                <td>{{$tblhomeandtripdatas->cost}}</td>
+                <td>{{$tblhomeandtripdatas->reason_cost}}</td>
+                <td>{{$tblhomeandtripdatas->copartner}}</td>
+                </tr>
+
+
+
+
+            @endforeach
+
+
+
+
+
+    </tbody>
+  </table>
 
 
 

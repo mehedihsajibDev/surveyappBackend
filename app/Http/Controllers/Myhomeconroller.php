@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Onlyhome;
+use App\HomeandTrip;
 
 use Illuminate\Http\Request;
 
@@ -13,8 +14,7 @@ class Myhomeconroller extends Controller
             'starttime' => 'required',
             'endtime' => 'required',
             'task' => 'required',
-            'copartner'=>'required',
-            'multitask' => 'required',
+
 
 
            ],
@@ -23,7 +23,7 @@ class Myhomeconroller extends Controller
             'starttime.required' => 'please enter your starttime name',
             'endtime.required' => 'please enter your endtime name',
             'task.required' => 'please enter your task name',
-            'multitask.required' => 'please enter your multitask name',
+
 
         ]);
 
@@ -39,9 +39,20 @@ class Myhomeconroller extends Controller
         $category->copartner = $request->input('copartner');
         $category->save();
 
+        $categorytwo=new HomeandTrip;
+        $categorytwo->user_id = auth()->user()->id; //sync with user
+        $categorytwo->starttime = $request->input('starttime');
+        $categorytwo->endtime = $request->input('endtime');
+        $categorytwo->task = $request->input('task');
+        $categorytwo->multitaask = $request->input('multitask');
+        $category->cost = $request->input('Expenditurecost');
+        $categorytwo->reason_cost = $request->input('Reasons_Expenditurecost');
+        $categorytwo->copartner = $request->input('copartner');
+        $categorytwo->save();
+
 
         return view('homeORtrip');
-        
+
 
           }
           public function __construct()
