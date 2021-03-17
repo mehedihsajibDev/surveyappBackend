@@ -32,7 +32,7 @@ public function tripposts(Request $request){
 
             'destination' => 'required',
             'transport'=>'required',
-
+            'adresses' => 'required',
 
             'q1value' => 'required',
             'q2value'=>'required',
@@ -57,6 +57,8 @@ public function tripposts(Request $request){
             'destination.required' => 'please enter your destination name',
 
             'transport.required' => 'please enter your transport name',
+
+            'adresses.required' => 'please enter your adresses name',
 
             'q1value.required' => 'please enter your q1value name',
             'q2value.required' => 'please enter your q2value name',
@@ -93,7 +95,7 @@ public function tripposts(Request $request){
         $category->q8value = $request->input('q8value');
 
         $category->save();
-        
+
         $categorytwo=new HomeandTrip;
 
         $categorytwo->user_id = auth()->user()->id; //sync with user

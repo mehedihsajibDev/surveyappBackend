@@ -91,10 +91,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
 data-js-validate="true" data-js-highlight-state-msg="true" data-js-show-valid-msg="true"
 id="myform">
     @csrf
-  <div class="container" style="max-width: 780px;">
+<div class="container" style="max-width: 780px;">
 
 
-<table class="table table-striped table-responsive centered">
+  <table class="table table-striped table-responsive centered">
   <thead>
     <tr>
       <td colspan="" style="padding-top: 20px;padding-bottom: 20px;">
@@ -214,12 +214,12 @@ id="myform">
   <option value="গৃহস্থলীর বাহিরের কাউকে সাহায্য করা">গৃহস্থলীর বাহিরের কাউকে সাহায্য করা  </option>
   <option value="স্বেচ্ছাসেবীর কাজ / সমাজসেবা">স্বেচ্ছাসেবীর কাজ / সমাজসেবা </option>
   </optgroup>
-</select>
-@error('task')
-<span class="text-danger">{{$message}}</span>
-@enderror
+ </select>
+  @error('task')
+  <span class="text-danger">{{$message}}</span>
+   @enderror
 </div>
-</td>
+  </td>
      </tr>
 
    <tr>
@@ -404,8 +404,7 @@ id="myform">
 
 
         @php
- $tblhomeandtripdata=\App\HomeandTrip::where('user_id',Auth::User()->id)->orderby('created_at','asc')->get()
-
+       $tblhomeandtripdata=\App\HomeandTrip::where('user_id',Auth::User()->id)->orderby('created_at','asc')->get()
         @endphp
 
 
@@ -414,16 +413,23 @@ id="myform">
             @foreach ($tblhomeandtripdata as $tblhomeandtripdatas)
 
             <tr>
+
+
                 <td>{{$tblhomeandtripdatas->starttime}}</td>
                 <td>{{$tblhomeandtripdatas->endtime}}</td>
                 <td>{{$tblhomeandtripdatas->task}}</td>
 
                 <td>{{$tblhomeandtripdatas->multitaask}}</td>
+                @if($tblhomeandtripdatas->tripno==0)
+                <td></td>
+                @else
                 <td>{{$tblhomeandtripdatas->tripno}}</td>
+                @endif
                 <td>{{$tblhomeandtripdatas->cost}}</td>
                 <td>{{$tblhomeandtripdatas->reason_cost}}</td>
                 <td>{{$tblhomeandtripdatas->copartner}}</td>
-                </tr>
+
+              </tr>
 
 
 
@@ -436,6 +442,8 @@ id="myform">
 
     </tbody>
   </table>
+
+
 
 
 

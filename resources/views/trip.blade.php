@@ -42,6 +42,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/
 
 
 <link rel="stylesheet" href="{{asset('backend')}}/css/style.css">
+
   <script type="text/javascript">
     $(document).ready(function(){
         $('#stepExample1').timepicker({ 'step': 15 });
@@ -100,7 +101,7 @@ th, td {
  <form action="{{route('trippost')}}" method="POST" id="myform">
  @csrf
 
-  <div class="container" style="max-width: 780px; margin-top: 30px;">
+<div class="container" style="max-width: 780px; margin-top: 30px;">
 
 
 <div class="rows">
@@ -213,14 +214,44 @@ th, td {
 
   <tr>
   <td>
- <select class="form-select" style="font-size: 14px;" name="destination">
-    <optgroup class="selectfont">
-        <option></option>
-  <option value="1" >শেষ গন্তব্য থেকে</option>
-  <option value="2">অন্য ঠিকানা থেকে  </option>
+    <select class="form-select" style="font-size: 14px;" name="destination" id="ddlModels">
+        <optgroup class="selectfont">
+            <option></option>
+      <option value="1" >শেষ গন্তব্য থেকে</option>
+      <option value="2">অন্য ঠিকানা থেকে  </option>
 
-</optgroup>
-  </select>
+
+    </optgroup>
+      </select>
+      <?php
+      $useradress=\App\TripactivityModel::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
+
+      ?>
+      <script type="text/javascript">
+        $(function () {
+            $("#ddlModels").change(function () {
+                var element=document.getElementById('adressesid');
+                if ($(this).val() == 2) {
+
+                 element.style.display='block';
+                 document.getElementById('adressesid').value = ''
+
+                    $("#adressesid").removeAttr("disabled");
+                    $("#adressesid").focus();
+                } else {
+                    // $("#adressesid").attr("disabled", "disabled");
+                    element.style.display='block';
+
+
+    document.getElementById('adressesid').value = "<?php if(empty($useradress->adresses)){echo '';}else{echo $useradress->adresses; }  ?>";
+
+
+
+
+                }
+            });
+        });
+    </script>
   @error('destination')
   <span class="text-danger">{{$message}}</span>
   @enderror
@@ -238,20 +269,12 @@ th, td {
 
     <optgroup class="selectfont">
         <option></option>
-  <option value="1">পায়ে হেঁটে</option>
-  <option value="2">রিকশা  </option>
-  <option value="3">বাইসাইকেল</option>
-  <option value="4">মোটর সাইকেল </option>
-  {{-- <option value="5">প্রাইভেট কার নিজে চালিয়ে</option>
-  <option value="6">প্রাইভেট কার সহ যাত্রী </option>
-  <option value="7">প্রাইভেট কার ড্রাইভার চালিয়ে</option>
-  <option value="8">গণ-পরিবহন (বাস/মিনিবাস/ট্রেন )</option>
-  <option value="9">স্কুল/কলেজ/বিশ্ববিদ্যালয়/স্টাফ পরিবহন  </option>
-  <option value="10">রাইড শেয়ারিং(উবার, পাঠাও) </option>
-  <option value="11">সাইকেল শেয়ারিং (জো বাইক) </option>
-  <option value="12">ট্যাক্সি/সিএনজি</option>
-  <option value="13">নৌযান (নৌকা/লঞ্চ/স্পীডবোট) </option>
-    <option value="অন্য কোনো ">অন্য কোনো </option> --}}
+  <option value="পায়ে হেঁটে">পায়ে হেঁটে</option>
+  <option value="রিকশা">রিকশা  </option>
+  <option value="বাইসাইকেল">বাইসাইকেল</option>
+  <option value="মোটর সাইকেল">মোটর সাইকেল </option>
+
+
 </optgroup>
 
   </select>
@@ -268,53 +291,32 @@ th, td {
   <tr>
   <td>
   <select class="form-select " style="font-size: 14px;" name="multitask" id="size">
+
 <option></option>
 
-  {{-- <option value="1">শিক্ষা ও সংশ্লিষ্ট কার্যক্রম </option>
-  <option value="2">চাকুরী বা ব্যবসায়িক কাজ করা </option>
-  <option value="3">অনলাইনে/ফোনে কেনাকাটা</option>
-  <option value="4">পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা</option>
-  <option value="5">ঘুমানো, তন্দ্রা বা বিশ্রাম </option>
-  <option value="6">পানীয়/খাদ্যগ্রহণ</option>
-  <option value="7">ব্যক্তিগত যত্ন:টেলিমেডিসিন  </option>
-  <option value="8">অনলাইন ব্যাংকিং </option>
-  <option value="9">পরবর্তী ইভেন্টের প্রস্তুতি গ্রহণ </option>
-  <option value="10">(পরবর্তী) দিনের পরিকল্পনা করা</option>
-  <option value="11">বিনোদন(রেডিও,গান বা ভিডিও)</option>
-  <option value="12">শরীর চর্চা,গেমস খেলা </option>
-  <option value="13">শৈল্পিক কার্য  </option>
-  <option value="14">সৃজনশীল চিন্তাভাবনা করা</option>
-  <option value="15">মুদ্রিত বই/সংবাদপত্র পড়া  </option>
-  <option value="16">ডিজিটাল বই/পত্রিকা  পড়া </option>
-  <option value="17">ইন্টারনেট ব্রাউজিং/ই-মেইল </option>
-  <option value="18">সামাজিক যোগযোগ মাধ্যম ব্যবহার </option>
-  <option value="19">ব্যক্তিগত ফোন কল/মেসেজ </option>
-  <option value="20">জানালার বাইরে / এদিক-ওদিক দেখা </option>
-  <option value="21">বন্ধু/পরিবারের সাথে কথা বলা   </option>
-  <option value="22"> অন্য যাত্রীদের সাথে কথা বলা  </option>
-  <option value="23"> অন্য কোনো  কিছু করা  </option>
-  <option value="24">কিছুই না করা   </option> --}}
 
   </select>
+
   @error('multitask')
             <span class="text-danger">{{$message}}</span>
-            @enderror
+  @enderror
+
             <script type="text/javascript">
                 $(document).ready(function () {
                 $("#type").change(function () {
                     var val = $(this).val();
-                    if (val == "1") {
- $("#size").html(" <option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা </option> <option value='অন্য যাত্রীদের সাথে কথা বলা'>অন্য যাত্রীদের সাথে কথা বলা </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য  </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও)</option> <option value='শরীর চর্চা,গেমস খেলা'>শরীর চর্চা,গেমস খেলা</option> <option value='ব্যক্তিগত ফোন কল/মেসেজ'>ব্যক্তিগত ফোন কল/মেসেজ</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option><option value='কিছুই না করা'>কিছুই না করা</option> <option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option>");
-
-                        }
-                        else if (val == "2") {
+                    if (val == "পায়ে হেঁটে"){
+ $("#size").html("<option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা </option> <option value='অন্য যাত্রীদের সাথে কথা বলা'>অন্য যাত্রীদের সাথে কথা বলা </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য  </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও)</option> <option value='শরীর চর্চা,গেমস খেলা'>শরীর চর্চা,গেমস খেলা</option> <option value='ব্যক্তিগত ফোন কল/মেসেজ'>ব্যক্তিগত ফোন কল/মেসেজ</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option><option value='কিছুই না করা'>কিছুই না করা</option> <option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option>");
+                                   }
+                        else if (val == "রিকশা") {
  $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা'>পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option><option value='অনলাইন ব্যাংকিং '>অনলাইন ব্যাংকিং </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও) </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option> <option value='ইন্টারনেট ব্রাউজিং/ই-মেইল'>ইন্টারনেট ব্রাউজিং/ই-মেইল</option><option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option> <option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option><option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option><option value='কিছুই না করা'>কিছুই না করা</option>" );
-                    } else if (val == "3") {
+                    } else if (val == "বাইসাইকেল") {
  $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা'>পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option><option value='অনলাইন ব্যাংকিং '>অনলাইন ব্যাংকিং </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও) </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option> <option value='ইন্টারনেট ব্রাউজিং/ই-মেইল'>ইন্টারনেট ব্রাউজিং/ই-মেইল</option><option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option> <option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option><option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option><option value='কিছুই না করা'>কিছুই না করা</option>" );
-                  } else if (val == "4") {
+                  } else if (val == "মোটর সাইকেল") {
 $("#size").html("<option value='ব্যক্তিগত ফোন কল/মেসেজ'>সামাজিক যোগযোগ মাধ্যম ব্যবহার</option><option value='পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা'>পরিবারের যত্ন:খাওয়ান,খেলা,শিক্ষা</option> <option value='পানীয়/খাদ্যগ্রহণ'>পানীয়/খাদ্যগ্রহণ</option><option value='অনলাইন ব্যাংকিং '>অনলাইন ব্যাংকিং </option> <option value='বিনোদন(রেডিও,গান বা ভিডিও)'>বিনোদন(রেডিও,গান বা ভিডিও) </option> <option value='শৈল্পিক কার্য'>শৈল্পিক কার্য</option> <option value='সৃজনশীল চিন্তাভাবনা করা'>সৃজনশীল চিন্তাভাবনা করা</option> <option value='ইন্টারনেট ব্রাউজিং/ই-মেইল'>ইন্টারনেট ব্রাউজিং/ই-মেইল</option><option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option> <option value='বন্ধু/পরিবারের সাথে কথা বলা'>বন্ধু/পরিবারের সাথে কথা বলা</option><option value='অন্য কোনো  কিছু করা'>অন্য কোনো  কিছু করা</option><option value='কিছুই না করা'>কিছুই না করা</option>" );
 
                     }
+
                 });
             });
             </script>
@@ -335,7 +337,7 @@ $("#size").html("<option value='ব্যক্তিগত ফোন কল/ম
 
        <tr>
         <td>
-          <label for="time" class="text-success">
+          <label class="text-success">
           গন্তব্যের ঠিকানা:
 রাস্তার নাম + বাড়ির নম্বর:
 এলাকা + পোস্ট কোড:
@@ -345,10 +347,17 @@ $("#size").html("<option value='ব্যক্তিগত ফোন কল/ম
         </tr>
 
         <tr>
-        <td><textarea name="adresses" rows="3" cols="50"></textarea>
-
+        <td>
+            @php
+            $useradress=\App\TripactivityModel::where('user_id',Auth::User()->id)->orderby('id','desc')->first()
+            @endphp
+            <textarea  name="adresses" rows="3" cols="50" id="adressesid" style='display:none;' > </textarea>
+            @error('adresses')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </td>
         </tr>
+
        <tr>
 
          <td><p class="text-success" >সহযাত্রী:</p></td>
@@ -360,14 +369,14 @@ $("#size").html("<option value='ব্যক্তিগত ফোন কল/ম
   <select class="form-select" style="font-size: 14px;" name="copartner">
   <optgroup class="selectfont">
       <option></option>
-  <option value="1">স্বামী/স্ত্রী</option>
-  <option value="2">সন্তান</option>
-  <option value="3">পিতামাতা </option>
-   <option value="4">বাড়ির অন্য বাসিন্দা </option>
-  <option value="5">আত্মীয় </option>
-  <option value="6">বন্ধুবান্ধব </option>
-  <option value="6">অন্য কোনো পরিচিত  </option>
-  <option value="6">অপরিচিত কেউ</option>
+  <option value="স্বামী/স্ত্রী">স্বামী/স্ত্রী</option>
+  <option value="সন্তান">সন্তান</option>
+  <option value="পিতামাতা">পিতামাতা </option>
+   <option value="বাড়ির অন্য বাসিন্দা">বাড়ির অন্য বাসিন্দা </option>
+  <option value="আত্মীয়">আত্মীয় </option>
+  <option value="বন্ধুবান্ধব">বন্ধুবান্ধব </option>
+  <option value="অন্য কোনো পরিচিত">অন্য কোনো পরিচিত  </option>
+  <option value="অপরিচিত কেউ">অপরিচিত কেউ</option>
 
   </optgroup>
 
@@ -952,6 +961,71 @@ TICK the box that best describes your experience:</label>
 </div>
 
 </form>
+<div class="container" style="max-width: 780px;">
+    <table class="table table-striped">
+        <thead>
+    <h4 class="text text-success text-center p-2"><u > Your recent activities </u> </h4>
+          <tr>
+
+            <th scope="col">start_time</th>
+            <th scope="col">end_time</th>
+            <th scope="col">task</th>
+            <th scope="col">multitaask</th>
+            <th scope="col">tripno</th>
+            <th scope="col">cost</th>
+            <th scope="col">reason_cost</th>
+            <th scope="col">copartner</th>
+          </tr>
+        </thead>
+        <tbody>
+
+
+            @php
+           $tblhomeandtripdata=\App\HomeandTrip::where('user_id',Auth::User()->id)->orderby('created_at','asc')->get()
+            @endphp
+
+
+
+
+                @foreach ($tblhomeandtripdata as $tblhomeandtripdatas)
+
+                <tr>
+
+
+                    <td>{{$tblhomeandtripdatas->starttime}}</td>
+                    <td>{{$tblhomeandtripdatas->endtime}}</td>
+                    <td>{{$tblhomeandtripdatas->task}}</td>
+
+                    <td>{{$tblhomeandtripdatas->multitaask}}</td>
+                    @if($tblhomeandtripdatas->tripno==0)
+                    <td></td>
+                    @else
+                    <td>{{$tblhomeandtripdatas->tripno}}</td>
+                    @endif
+
+
+                    <td>{{$tblhomeandtripdatas->cost}}</td>
+                    <td>{{$tblhomeandtripdatas->reason_cost}}</td>
+                    <td>{{$tblhomeandtripdatas->copartner}}</td>
+
+                  </tr>
+
+
+
+
+                @endforeach
+
+
+
+
+
+        </tbody>
+      </table>
+
+
+    </div>
+
+
 
   <script type="text/javascript">
     function timePicker(id){

@@ -13,14 +13,17 @@ use App\Answere;
 class QuestionsController extends Controller
 {
     public function questions(){
-        if (Auth::User()->status==1) {
-            return view('decision');
-        }
+         if (Auth::User()->status==1) {
+     return view('decision');
+    }
+
         else{
             $question=Question::all();
             $answer=Answere::get();
             return view('questions')->with('answer',$answer)->with('question',$question);
         }
+
+
     }
 
     public function decision(){

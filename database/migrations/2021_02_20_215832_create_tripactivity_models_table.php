@@ -22,7 +22,7 @@ class CreateTripactivityModelsTable extends Migration
 
             $table->string('multitaask',100);
             $table->string('ticketprice',100)->nullable();
-            $table->string('adresses',100)->nullable();
+            $table->string('adresses',100);
             $table->string('destination',100);
             $table->string('transport',100);
             $table->string('copartner',100)->nullable();
