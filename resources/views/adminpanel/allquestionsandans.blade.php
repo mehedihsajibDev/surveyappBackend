@@ -19,10 +19,16 @@
       <a class="navbar-brand" href="#">SurveyApp</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{{route('admin.dashboard')}}">Home</a></li>
+      <li ><a href="{{route('admin.dashboard')}}">Home</a></li>
 
 
     </ul>
+    <ul class="nav navbar-nav">
+      <li ><a href="{{ URL::previous() }}">Back</a></li>
+
+
+    </ul>
+
     <ul class="nav navbar-nav navbar-left ">
 
         <li>
@@ -41,7 +47,7 @@
 <div style="float: left;margin-left: 300px;">
     <table class="table table-bordered">
         <thead>
-    <h4 class="text text-success text-center p-2">Report of {{$name->name}} <br><br> </h4>
+    <h4 class="text text-success text-center p-2">Answeres of {{$name->name}} <br><br> </h4>
 
     <hr>
           <tr>
@@ -77,7 +83,25 @@
     <tbody>
 
 @foreach ($allQaandAns as $item)
-<tr><td>{{$item->answere_id}}</td> </tr>
+
+
+@if ($item->answere_id==1)
+<tr><td>দৃঢ়ভাবে একমত</td> </tr>
+@elseif($item->answere_id==2)
+<tr><td>একমত</td> </tr>
+@elseif($item->answere_id==3)
+<tr><td>সামান্য একমত</td> </tr>
+@elseif($item->answere_id==4)
+<tr><td>নিরপেক্ষ</td> </tr>
+@elseif($item->answere_id==5)
+<tr><td>কিছুটা দ্বিমত</td> </tr>
+@elseif($item->answere_id==6)
+<tr><td>দ্বিমত</td> </tr>
+@elseif($item->answere_id==7)
+<tr><td>দৃঢ়ভাবে দ্বিমত</td> </tr>
+@else
+<tr><td>nothhinng</td> </tr>
+@endif
 @endforeach
 </tbody>
 </table>

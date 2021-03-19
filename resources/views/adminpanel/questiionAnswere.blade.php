@@ -19,12 +19,12 @@
       <a class="navbar-brand" href="#">SurveyApp</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{{route('admin.dashboard')}}">Home</a></li>
+      <li><a href="{{route('admin.dashboard')}}">Home</a></li>
 
 
     </ul>
     <ul class="nav navbar-nav">
-        <li class=""><a href="{{route('showqans')}}">BackGround Questions && Answeres</a></li>
+        <li class="active"><a href="{{route('showqans')}}">BackGround Questions && Answeres</a></li>
 
 
       </ul>
