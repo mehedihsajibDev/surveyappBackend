@@ -14,7 +14,7 @@ class Myhomeconroller extends Controller
             'starttime' => 'required',
             'endtime' => 'required',
             'task' => 'required',
-
+            
 
 
            ],
@@ -23,6 +23,7 @@ class Myhomeconroller extends Controller
             'starttime.required' => 'please enter your starttime name',
             'endtime.required' => 'please enter your endtime name',
             'task.required' => 'please enter your task name',
+
 
 
         ]);

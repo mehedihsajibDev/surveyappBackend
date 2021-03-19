@@ -376,7 +376,7 @@ id="myform" >
     <tbody>
 
         @php
- $tbldata=\App\Home_Single::where('user_id',Auth::User()->id)->orderby('id','desc')->get()
+ $tbldata=\App\Home_Single::where('user_id',Auth::User()->id)->orderby('id','asc')->get()
 
         @endphp
 

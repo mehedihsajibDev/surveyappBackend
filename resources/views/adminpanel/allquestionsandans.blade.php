@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SurveyAdminPanel</title>
+	<title>BackgroundQuestionsAndAnswere</title>
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
 
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" style="width: 1500px;">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">SurveyApp</a>
@@ -23,12 +23,7 @@
 
 
     </ul>
-    <ul class="nav navbar-nav">
-        <li class=""><a href="{{route('showqans')}}">BackGround Questions && Answeres</a></li>
-
-
-      </ul>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-left ">
 
         <li>
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -41,42 +36,52 @@
               {{ csrf_field() }}
           </form>
     </ul>
-
   </div>
 </nav>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">email</th>
-      <th scope="col">phone</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-      @php
-    //$tblhomeandtripdata=\App\HomeandTrip::where('user_id',Auth::User()->id)->orderby('created_at','asc')->get()
+<div style="float: left;margin-left: 300px;">
+    <table class="table table-bordered">
+        <thead>
+    <h4 class="text text-success text-center p-2">Report of {{$name->name}} <br><br> </h4>
 
-      $alluser=\App\User::all();
-      @endphp
-      @foreach ($alluser as $allusers)
+    <hr>
+          <tr>
+            <th scope="col">Questionslist</th>
+          </tr>
+        </thead>
+        <tbody>
+            @php
+             $questiiontitle=\App\Question::All();
+            @endphp
+
+    @foreach ($questiiontitle as $title )
+
+    <tr><td>{{$title->question_title}}</td> </tr>
+
+    @endforeach
+
+        </tbody>
+      </table>
+
+</div>
+<div style="float: left">
+    <table class="table table-bordered">
+    <thead>
+        <h4 class="text text-success text-center p-2 invisible">Report of  <br><br> </h4>
+
+    <hr class="invisible">
       <tr>
-        <td>{{$allusers->id}}</td>
-        <td>{{$allusers->name}}</td>
-        <td>{{$allusers->email}}</td>
-        <td>{{$allusers->contact}}</td>
 
-        <td><a href="allactivity/{{$allusers->id}}">View Details</a> </td>
+        <th scope="col">Answere</th>
       </tr>
-      @endforeach
+    </thead>
+    <tbody>
 
-
-
-
-
-  </tbody>
+@foreach ($allQaandAns as $item)
+<tr><td>{{$item->answere_id}}</td> </tr>
+@endforeach
+</tbody>
 </table>
+</div>
 
 </body>
 </html>

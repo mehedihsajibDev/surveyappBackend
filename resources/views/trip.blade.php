@@ -217,8 +217,8 @@ th, td {
     <select class="form-select" style="font-size: 14px;" name="destination" id="ddlModels">
         <optgroup class="selectfont">
             <option></option>
-      <option value="1" >শেষ গন্তব্য থেকে</option>
-      <option value="2">অন্য ঠিকানা থেকে  </option>
+      <option value="শেষ গন্তব্য থেকে" >শেষ গন্তব্য থেকে</option>
+      <option value="অন্য ঠিকানা থেকে">অন্য ঠিকানা থেকে  </option>
 
 
     </optgroup>

@@ -37,6 +37,8 @@ Route::post('home_single', 'SingleHome@singlehome')->name('home_single');
 Route::resource('questionans', 'QuestionAnsController');
 
 Route::get('allactivity/{id}', 'AdminHomeController@showallData');
+Route::get('showquestionns', 'AdminHomeController@showquestionans')->name('showqans');
+Route::get('allqestionsandanswere/{id}', 'AdminHomeController@allqestionsandanswere')->name('allqestionsandanswere');
 
 
 

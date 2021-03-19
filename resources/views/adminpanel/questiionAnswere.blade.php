@@ -67,7 +67,7 @@
         <td>{{$allusers->email}}</td>
         <td>{{$allusers->contact}}</td>
 
-        <td><a href="allactivity/{{$allusers->id}}">View Details</a> </td>
+        <td><a href="allqestionsandanswere/{{$allusers->id}}">View</a> </td>
       </tr>
       @endforeach
 

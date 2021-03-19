@@ -13,17 +13,17 @@
 <body>
 
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" style="width: 1500px;">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">SurveyApp</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{{route('admin.dashboard')}}">UserList</a></li>
+      <li class="active"><a href="{{route('admin.dashboard')}}">Home</a></li>
 
 
     </ul>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-left ">
 
         <li>
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -51,7 +51,11 @@
         <th scope="col">task</th>
         <th scope="col">multitaask</th>
         <th scope="col">tripno</th>
+        <th scope="col">transport</th>
+        <th scope="col">destination</th>
+        <th scope="col">adresses</th>
         <th scope="col">cost</th>
+        <th scope="col">ticketprice</th>
         <th scope="col">reason_cost</th>
         <th scope="col">q1value</th>
         <th scope="col">q2value</th>
@@ -59,6 +63,8 @@
         <th scope="col">q4value</th>
         <th scope="col">q5value</th>
         <th scope="col">q6value</th>
+        <th scope="col">q7value</th>
+        <th scope="col">q8value</th>
       </tr>
     </thead>
     <tbody>
@@ -82,7 +88,13 @@
                 @else
                 <td>{{$tblhomeandtripdatas->tripno}}</td>
                 @endif
+
+
+                <td>{{$tblhomeandtripdatas->transport}}</td>
+                <td>{{$tblhomeandtripdatas->destination}}</td>
+                <td>{{$tblhomeandtripdatas->adresses}}</td>
                 <td>{{$tblhomeandtripdatas->cost}}</td>
+                <td>{{$tblhomeandtripdatas->ticketprice}}</td>
                 <td>{{$tblhomeandtripdatas->reason_cost}}</td>
                 <td>{{$tblhomeandtripdatas->q1value}}</td>
                 <td>{{$tblhomeandtripdatas->q2value}}</td>
@@ -90,7 +102,8 @@
                 <td>{{$tblhomeandtripdatas->q4value}}</td>
                 <td>{{$tblhomeandtripdatas->q5value}}</td>
                 <td>{{$tblhomeandtripdatas->q6value}}</td>
-
+                <td>{{$tblhomeandtripdatas->q7value}}</td>
+                <td>{{$tblhomeandtripdatas->q8value}}</td>
               </tr>
 
 

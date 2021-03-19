@@ -143,7 +143,7 @@ id="myform">
                 @endforeach --}}
 
                 @if (empty($time->user_id))
-                <input readonly type="text" id="stepExample1" name="starttime" value="12:00pm">
+                <input readonly type="text" id="stepExample1" name="starttime" value="12:00am">
                   @else
                   @if (empty($time2->user_id))
                   <input readonly type="text" id="stepExample1" name="starttime" value="{{$time->end_time}}">
